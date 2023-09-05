@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { WildCardComponent } from './view/wild-card/wild-card.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    WildCardComponent
   ],
   imports: [
     BrowserModule,
