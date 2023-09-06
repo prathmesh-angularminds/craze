@@ -3,14 +3,12 @@ const mongoose = require('mongoose')
 const organizationSchema = new mongoose.Schema({
     name: {
         type: String,
+        trim: true,
         required: true
     },
     email: {
         type: String,
-        required: true
-    },
-    password: {
-        type: String,
+        trim: true,
         required: true
     },
     address: {
@@ -36,3 +34,7 @@ const organizationSchema = new mongoose.Schema({
         }
     },
 })
+
+const Organization = mongoose.model('Organization',organizationSchema)
+
+module.exports = Organization

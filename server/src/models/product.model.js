@@ -5,6 +5,11 @@ const ObjectId = Schema.Types.ObjectId
 const productType = ["CLOTHS", "JEWELLERY", "FOOT-WARE", "ACCESSORY"]
 
 const productSchema = new mongoose.Schema({
+    _org: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Organization',
+        required: true,
+    },
     name: {
         type: String,
         trim: true,
@@ -15,12 +20,48 @@ const productSchema = new mongoose.Schema({
         trim: true,
         required: true
     },
+    productDetails: {
+        label: {
+            type: String,
+            trim: true,
+            required: true
+        }
+    },
     price: {
         type: Number,
         required: true
     },
+    hasOffer: {
+        type: Boolean,
+    },
+    offerPercentage: {
+        type: Number,
+    },
+    stock: [{
+        color: {
+            type: String,
+            trim: true,
+            required: true
+        },
+        size: {
+            label: {
+                type: String,
+                trim: true,
+                required: true
+            },
+            labelCount: {
+                type: Number,
+                trim: true,
+                required: true,
+            }
+        }
+    }],
     createdAt: {
         type: Date,
+    },
+    createdBy: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
     },
     productType: {
         type: String,
@@ -42,19 +83,13 @@ const productSchema = new mongoose.Schema({
     images: [{
         public_id: {
             type: String,
+            trim: true,
         },
         url: {
-            type: String
+            type: String,
+            trim: true
         }
     }],
-    hasOffer: {
-        type: Boolean,
-        required: true
-    },
-    offerPercentage: {
-        type: Number,
-        required: true,
-    }
 })
 
 const Product = mongoose.model('product', productSchema)
