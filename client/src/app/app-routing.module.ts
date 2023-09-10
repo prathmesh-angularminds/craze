@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
-import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
 import { WildCardComponent } from './view/wild-card/wild-card.component';
 
 const routes: Routes = [
+  // {
+  //   path: "",
+  //   loadChildren: () => import('./view/seller/seller.module').then(m => m.SellerModule);
+  // },
   {
-    path: "",
-    component: HomeLayoutComponent
-  },
-  {
-    path: "auth",
-    component: AuthLayoutComponent
+    path: "seller",
+    loadChildren: () => import('./view/seller/seller.module').then(m => m.SellerModule),
+    pathMatch: 'full'
   },
   {
     path: "**",
-    component: WildCardComponent
+    component: WildCardComponent,
+    pathMatch: 'full'
   }
 ];
 

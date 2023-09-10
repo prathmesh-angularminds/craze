@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
 import { HomeLayoutComponent } from './home-layout/home-layout.component';
+import { RouterOutlet } from '@angular/router';
 
 
 
@@ -11,7 +12,8 @@ import { HomeLayoutComponent } from './home-layout/home-layout.component';
     HomeLayoutComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterOutlet
   ],
   exports: [
     AuthLayoutComponent,
