@@ -7,7 +7,7 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 const routes:  Routes = [
     {
         path: "",
-        redirectTo: "sign-in",
+        redirectTo: "seller/auth/sign-in",
         pathMatch: "full"
     },
     {

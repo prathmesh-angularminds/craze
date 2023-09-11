@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SellerRoutingModule } from './seller-routing.module';
+import { LayoutModule } from 'src/app/layout/layout.module';
 
 
 
@@ -8,7 +9,8 @@ import { SellerRoutingModule } from './seller-routing.module';
   declarations: [],
   imports: [
     CommonModule,
-    SellerRoutingModule
+    SellerRoutingModule,
+    LayoutModule
   ]
 })
 export class SellerModule { }

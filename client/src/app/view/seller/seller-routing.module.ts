@@ -12,13 +12,13 @@ const routes: Routes = [
     {
         path: "auth",
         component: AuthLayoutComponent,
-        children: [
-            {
-                path: "",
-                loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
-                pathMatch: 'full'
-            }
-        ]
+        // children: [
+        //     {
+        //         path: "",
+        //         loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+        //         pathMatch: 'full'
+        //     }
+        // ]
     },
     {
         path: "app",
