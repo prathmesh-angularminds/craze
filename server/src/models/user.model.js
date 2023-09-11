@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    _org: {
+    __org: {
         type: mongoose.Types.ObjectId,
-        ref: 'Organization'
+        ref: 'Organization',
+        required: true,
     },
     name: {
         type: String,
@@ -38,3 +39,7 @@ const userSchema = new mongoose.Schema({
         required: true
     }
 })
+
+const User = mongoose.model('User',userSchema);
+
+module.exports = User

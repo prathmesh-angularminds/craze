@@ -1,4 +1,5 @@
 const express = require('express');
+const ApiError = require('./utils/apiError')
 const app = express();
 const { errorHandler } = require('./middleware/error')
 const bodyParser = require('body-parser');

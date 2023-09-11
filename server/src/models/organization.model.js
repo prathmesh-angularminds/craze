@@ -1,12 +1,17 @@
 const mongoose = require('mongoose')
 
 const organizationSchema = new mongoose.Schema({
-    name: {
+    orgName: {
         type: String,
         trim: true,
         required: true
     },
-    email: {
+    orgEmail: {
+        type: String,
+        trim: true,
+        required: true
+    },
+    gstIN: {
         type: String,
         trim: true,
         required: true
@@ -14,23 +19,18 @@ const organizationSchema = new mongoose.Schema({
     address: {
         street1: {
             type: String,
-            required: true,
         },
         street2: {
             type: String,
-            required: true,
         },
         state: {
             type: String,
-            required: true,
         },
         country: {
             type: String,
-            required: true,
         },
         pinCode: {
             type: String,
-            required: true,
         }
     },
 })
