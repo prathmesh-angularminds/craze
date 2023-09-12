@@ -10,6 +10,14 @@ const createOrganization = {
     }) 
 }
 
+// Check organization id
+const checkObjectId = {
+    params: Joi.object().keys({
+        orgId: Joi.string().required().custom(objectId)
+    })
+}
+
 module.exports = {
-    createOrganization
+    createOrganization,
+    checkObjectId
 }

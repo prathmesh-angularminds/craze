@@ -1,12 +1,12 @@
 const { Seller } = require('./../models/index');
 
 /**
- * Create new seller
- * @param {*} seller 
+ * 
+ * @param { new seller } seller 
+ * @returns new seller
  */
 const signInSeller = (seller) => {
-
-    Seller.create(seller);
+    return Seller.create(seller);
 }
 
 module.exports = {

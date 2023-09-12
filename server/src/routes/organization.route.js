@@ -7,4 +7,7 @@ const { organizationController } = require('./../controllers/index')
 router.route('/')
     .post(validate(organizationValidation.createOrganization),organizationController.createOrganization);
 
+router.route('/:orgId')
+    .get(validate(organizationValidation.checkObjectId),organizationController.getOrganizationById)
+
 module.exports = router

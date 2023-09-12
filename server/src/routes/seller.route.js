@@ -5,7 +5,7 @@ const { sellerValidation } = require('./../validations/index');
 const { sellerController } = require('./../controllers/index');
 
 router.route('/')
-    // .get()
+    .get(validate(sellerValidation.signInSeller),sellerController.signInSeller)
     .post(validate(sellerValidation.signUpSeller),sellerController.signUpSeller)
 
 // router.route('/:sellerId')
