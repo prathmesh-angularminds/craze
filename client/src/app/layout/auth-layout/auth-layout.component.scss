@@ -1,0 +1,19 @@
+
+.auth-layout {
+
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-image: url('./../../../assets/images/background-circle.svg');
+    background-position: right center;
+    background-size: 48%;
+    background-repeat: no-repeat;
+}
+
+.auth-layout-glass-body {
+
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 254, 254, 0.10);
+    backdrop-filter: blur(60px);    
+}
