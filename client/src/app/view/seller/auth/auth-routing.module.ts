@@ -7,24 +7,21 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 const routes:  Routes = [
     {
         path: "",
-        redirectTo: "seller/auth/sign-in",
+        redirectTo: "sign-in",
         pathMatch: "full"
     },
     {
         path: "sign-in",
         component: SignInComponent,
-        pathMatch: 'full'
     },
     {
         path: "sign-up",
         component: SignUpComponent,
-        pathMatch: 'full'
     },
     {
         path: "forget-password",
         component: ForgetPasswordComponent,
-        pathMatch: 'full'
-    }
+    },
 ] 
 
 @NgModule({

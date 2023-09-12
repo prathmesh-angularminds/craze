@@ -5,25 +5,23 @@ import { HomeLayoutComponent } from 'src/app/layout/home-layout/home-layout.comp
 
 const routes: Routes = [
     {
-        path: "seller",
-        redirectTo: "seller/auth",
+        path: "",
+        redirectTo: "auth",
         pathMatch: "full"
     },
     {
         path: "auth",
         component: AuthLayoutComponent,
-        // children: [
-        //     {
-        //         path: "",
-        //         loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
-        //         pathMatch: 'full'
-        //     }
-        // ]
+        children: [
+            {
+                path: "",
+                loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+            }
+        ],
     },
     {
         path: "app",
         component: HomeLayoutComponent,
-        pathMatch: 'full'
     },
 ]
 
