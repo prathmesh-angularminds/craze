@@ -1,0 +1,17 @@
+
+
+@mixin flex-properties($display,$justifyContent,$alignItem) {
+
+    display: $display;
+    justify-content: $justifyContent;
+    align-items: $alignItem;
+}
+
+@mixin text-font($size,$weight,$style,$color) {
+
+    font-size: $size;
+    font-weight: $weight;
+    font-style: $style;
+    color: $color
+
+}

@@ -1,3 +1,4 @@
+@import '../../../../../assets/scss/mixins';
 
 .sign-in {
 
@@ -12,24 +13,19 @@
         display: flex;
         justify-content: center;
         flex-direction: column;
-        border: 2px solid red;
 
-        padding-left: 130px;
+        padding-left: 8%;
         box-sizing: border-box;
     }
 
     &-title {
 
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 900;
+        @include text-font(20px,900,normal,#000);
     }
 
     &-form-title {
 
-        font-size: 35px;
-        font-style: normal;
-        font-weight: 900;
+        @include text-font(35px,900,normal,#000);
 
         margin-top: 40px;
         box-sizing: border-box;
@@ -37,10 +33,7 @@
 
     &-form-sub-title {
 
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 500;
-        color: #7C7C7C;
+        @include text-font(14px,500,normal,#7C7C7C);
 
         margin-top: 10px;
         box-sizing: border-box;
@@ -49,30 +42,48 @@
     &-form {
 
         width: 80%;
-        border: 2px solid red;
 
-    }
+        &-email, &-password {
 
-    // button
-    &-form-button {
-
-        width: 100%;
-
-        button {
             width: 100%;
-            height: 50px;
-            font-weight: bold;
+            display: flex;
+            flex-direction: column;
 
-            border: 1px solid #000;
-            background: #A272EB;
-            box-shadow: 2px 2px 0px 0px #000;
+            label {
+                font-weight: bold;
+            }
+
+            input {
+                height: 50px;
+                outline: none;
+                border: 1px solid black;
+            }
+
+            box-sizing: border-box;
+            margin-bottom: 4%;
+        }
+
+        // button
+        &-button {
+    
+            width: 100%;
+            button {
+                width: 100%;
+                height: 50px;
+                font-weight: bold;
+                @include text-font(16px,bold,normal,black);
+                cursor: pointer;
+                border: 1px solid #000;
+                background: #A272EB;
+                box-shadow: 2px 2px 0px 0px #000;
+            }
         }
     }
+
 
     &-form-divider {
 
         width: 80%;
-        border: 2px solid red;
         display: flex;
         justify-content: space-between;
         align-items: center;
