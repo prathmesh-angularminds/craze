@@ -16,8 +16,8 @@ app.use(cors({ origin: '*' }));
 app.use(bodyParser.json())
 
 // Initialize passport for authentication
-app.use(passport.initialize())
-passport.use('jwt',strategy)
+// app.use(passport.initialize())
+// passport.use('jwt',strategy)
 
 app.use('/api',router)
 

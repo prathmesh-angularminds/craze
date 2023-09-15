@@ -3,7 +3,7 @@ const { Seller } = require('./../models/index');
 const catchAsync = require('./../utils/catchAsync');
 const httpStatus = require('http-status');
 const { sellerService, tokenService } = require('./../services/index');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 // Sign Up [Register] Seller
 const signUpSeller = catchAsync(async(req,res,next) => {
@@ -27,26 +27,25 @@ const signUpSeller = catchAsync(async(req,res,next) => {
 // const signIn
 const signInSeller = catchAsync(async(req,res,next) => {
 
-    const seller = await Seller.find({email: req.body.email});
+    const seller = await Seller.findOne({email: req.body.email});
 
     // If email is not available
-    if(!seller.length) {
+    if(!seller) {
         throw new ApiError(httpStatus.NOT_FOUND,"Invalid email or password");
     }
 
-    console.log(req.body.password)
-    let demo = bcrypt.compare(req.body.password,seller.password).then((data) => console.log(data)).catch((err) => console.log(err))
-    console.log(demo)
     // If password match
-    // if(! await bcrypt.compare(req.body.password,seller.password)) {
-        // throw new ApiError(httpStatus.NOT_FOUND,"Invalid email or password");
-    // } 
+    if(! await bcrypt.compare(req.body.password,seller.password)) {
+        throw new ApiError(httpStatus.NOT_FOUND,"Invalid email or password");
+    } 
 
-    tokenService.generateJwtToken(seller._id);
+    const demo = tokenService.generateJwtToken(seller._id);
 
-    res.send({
+    console.log("Demo: ",demo);
 
-    }).status(httpStatus.OK)
+    // res.send({
+
+    // }).status(httpStatus.OK)
 
 })
 
