@@ -8,7 +8,7 @@ const httpStatus = require('http-status')
 const catchAsync = require('./utils/catchAsync');
 const router = require('./routes/index')
 require('dotenv').config()
-const strategy = require('./config/passport');
+// const strategy = require('./config/passport');
 const passport = require('passport')
 
 
@@ -16,8 +16,8 @@ app.use(cors({ origin: '*' }));
 app.use(bodyParser.json())
 
 // Initialize passport for authentication
-app.use(passport.initialize())
-passport.use('jwt',strategy)
+// app.use(passport.initialize())
+// passport.use('jwt',strategy)
 
 app.use('/api',router)
 

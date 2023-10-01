@@ -1,4 +1,4 @@
-
+@import './variables';
 
 @mixin flex-properties($display,$justifyContent,$alignItem) {
 
@@ -7,11 +7,56 @@
     align-items: $alignItem;
 }
 
+// Brutalism text font 
 @mixin text-font($size,$weight,$style,$color) {
 
     font-size: $size;
     font-weight: $weight;
     font-style: $style;
     color: $color
+}
 
+// Brutalism input field
+@mixin input-text-field($width,$height,$borderColor) {
+
+    width: $width;
+    height: $height;
+    border: 1px solid $borderColor;
+    outline: none;
+    
+    font-weight: bold;
+    padding-left: 5%;
+    margin: 10px 0px 5px 0px;
+    box-sizing: border-box;
+}
+
+// Form validation error 
+@mixin form-validation-message {
+
+    @include text-font(14px, 400, normal, $error);  
+}
+
+// Brutalism button
+@mixin brutalism-button($width,$height,$bgColor) {
+
+    width: $width;
+    height: $height;
+    cursor: pointer;
+    border: 1px solid $black;
+    background: $bgColor;
+
+}
+
+// Margin
+@mixin margin($top,$right,$bottom,$left) {
+
+    margin: $top $right $bottom $left;
+    box-sizing: border-box;
+}
+
+// Padding
+@mixin padding($top,$right,$bottom,$left) {
+
+    padding: $top $right $bottom $left;
+    box-sizing: border-box;
 }

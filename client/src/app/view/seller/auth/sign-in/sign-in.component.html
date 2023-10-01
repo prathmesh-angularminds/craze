@@ -12,13 +12,26 @@
                 <div class="sign-in-form-email">
                     <label>Email</label>
                     <input type="email"/>
-                    <!-- <div> validation </div> -->
+                    <!-- <span>
+                        This is a validation error
+                    </span> -->
                 </div>
                 <div class="sign-in-form-password">
                     <label>Password</label>
                     <input />
-                    <!-- <div> validation </div> -->
+                    <!-- <span>
+                        This is a validation error
+                    </span> -->
                 </div>
+                <div class="sign-in-form-password-functions">
+                    <!-- <div class="check-box">
+                        <input type="checkbox" />
+                        <label>Remember me</label>
+                    </div> -->
+                    <div class="forget-password" [routerLink]="'/seller/auth/forget-password'">
+                        Forget password ?
+                    </div>
+                </div>  
                 <div class="sign-in-form-button">
                     <button type="button">Sign in</button>
                 </div>
@@ -31,8 +44,8 @@
             <div class="sign-in-left-line"></div>
         </div>
         
-        <p class="sign-in-go-to-login">
-            You don’t have an account ? <span [routerLink]="'/seller/auth/sign-up'">Create an account</span> 
+        <p class="sign-in-go-to-sign-up">
+            You don’t have an account ?<span [routerLink]="'/seller/auth/sign-up'"> Create an account</span> 
         </p>
     </div>
 </div>
