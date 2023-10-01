@@ -27,10 +27,10 @@ const signUpSeller = catchAsync(async(req,res,next) => {
 // Sign In [Login] Seller
 const signInSeller = catchAsync(async(req,res,next) => {
 
-    const seller = await Seller.find({email: req.body.email});
+    const seller = await Seller.findOne({email: req.body.email});
 
     // If email is not available
-    if(!seller.length) {
+    if(!seller) {
         throw new ApiError(httpStatus.NOT_FOUND,"Invalid email or password");
     }
 
@@ -39,9 +39,9 @@ const signInSeller = catchAsync(async(req,res,next) => {
         throw new ApiError(httpStatus.NOT_FOUND,"Invalid email or password");
     } 
 
-    res.send({
+    // res.send({
 
-    }).status(httpStatus.OK)
+    // }).status(httpStatus.OK)
 
 })
 
