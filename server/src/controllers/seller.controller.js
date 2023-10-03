@@ -2,22 +2,17 @@ const ApiError = require('./../utils/apiError');
 const { Seller } = require('./../models/index');
 const catchAsync = require('./../utils/catchAsync');
 const httpStatus = require('http-status');
-const { sellerService } = require('./../services/index');
+const { sellerService, tokenService, organizationService } = require('./../services/index');
 const bcrypt = require('bcrypt');
+
+// const { v4: uuidv4} = require('uuid');
+// const { setUser, getUser} = require('./../config/sessionToUserMap');
 
 // Sign Up [Register] Seller
 const signUpSeller = catchAsync(async(req,res,next) => {
-
-    const seller = await Seller.find({email: req.body.email});
-
-    // If email is already used
-    if(seller.length) {
-        throw new ApiError(httpStatus.BAD_REQUEST,"Email already present");
-    }
     
-    // Decrypting password
-    let decryptedPassword = await bcrypt.hash(req.body.password,12);
-    Object.assign(req.body,{password: decryptedPassword});
+    // Check whether organization is exist or not
+    const org = await organizationService.getOrganizationById(req.body._org);
 
     const newSeller = await sellerService.signInSeller(req.body)
 
@@ -35,13 +30,14 @@ const signInSeller = catchAsync(async(req,res,next) => {
     }
 
     // If password match
-    if(! await bcrypt.compare(req.body.password,seller[0].password)) {
+    if(! await bcrypt.compare(req.body.password,seller.password)) {
         throw new ApiError(httpStatus.NOT_FOUND,"Invalid email or password");
     } 
 
-    // res.send({
+    let token = tokenService.generateAuthToken(seller._id);    
+    res.cookie('access_token',token);
 
-    // }).status(httpStatus.OK)
+    res.send(null).status(httpStatus.OK)
 
 })
 

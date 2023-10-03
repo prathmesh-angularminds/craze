@@ -1,39 +1,37 @@
-// const jwt = require('jsonwebtoken')
-// const moment = require('moment');
-// require('dotenv').config()
+require('dotenv').config()
+const jwt = require('jsonwebtoken');
 
-// /**
-//  * 
-//  * @param {user mongoose id} id 
-//  * @param {token expiry time} expires 
-//  * @param {token secret key} secret 
-//  * @returns 
-//  */
-// const generateToken = (id,expires,secret = process.env.JWT_SECRET) => {
+/**
+ * This method create a new json web token
+ * @param {Object} payload 
+ * @returns jwt token 
+ */
+const generateToken = (payload) => {
+    return jwt.sign(payload,process.env.JWT_SECRET);
+}
 
-//     const payload = {
-//         sub: id,
-//         iat: moment().unix(),
-//         exp: expires.unix()
-//     }
+/**
+ * This method is called while sign in a user to generate a new jwt token
+ * @param {Mongoose id} id 
+ * @returns jwt token
+ */
+const generateAuthToken = (id) => {
 
-//     return jwt.sign(payload,secret);
+    const payload = {id};
+    const token = generateJWTToken(payload);
+    return token
+}
+
+// const generateForgetPasswordToken = () => {
+
 // }
 
-// /**
-//  * 
-//  * @param {user mongoose id} userId 
-//  * @returns 
-//  */
-// const generateJwtToken = (userId) => {
-//     const accessTokenExpiry = moment().add(process.env.JWT_ACCESS_TOKEN_EXPIRATION_MINUTE,'minute')
-//     const accessToken = generateToken(userId,accessTokenExpiry);
+// const generateInviteUserToken = () => {
 
-//     return {
-//         token: accessToken
-//     }
 // }
 
-// module.exports = {
-//     generateJwtToken
-// }
+module.exports = {
+    generateAuthToken,
+    // generateForgetPasswordToken,
+    // generateInviteUserToken
+}
