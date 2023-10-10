@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToasterServiceService } from './toaster-service/toaster-service.service';
 
 @Component({
   selector: 'app-toaster',
@@ -8,21 +9,30 @@ import { Component, OnInit } from '@angular/core';
 export class ToasterComponent implements OnInit {
 
   // Instance variables
-  message!: String;
-  isSuccess: Boolean = false;
-  duration!: Number;
-  position!: Number;
-  show: Boolean = false;
+  message!: string;
+  isSuccess: boolean = false;
+  duration!: number;
+  position!: number;
+  show: boolean = false;
 
-  constructor() {
-
-    this.show = true;
-    setTimeout(() => {
-      // this.show = false
-    },3000);
-  }
+  constructor(private toasterService: ToasterServiceService) {}
 
   ngOnInit(): void {
+
+    this.toasterService.showToaster.subscribe((res: any) => {
+      
+      if(res) {
+        
+        this.show = true;
+        this.message = res.message;
+        this.isSuccess = res.type === 'Success' ? true : false;
+      }
+
+      // After 6 second hide toaster
+      setTimeout(() => {
+        this.show = false;
+      },6000)
+    })
   }
 
 }

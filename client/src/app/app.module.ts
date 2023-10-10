@@ -4,17 +4,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WildCardComponent } from './view/wild-card/wild-card.component';
-import { LayoutModule } from './layout/layout.module';
-import { ToasterComponent } from './shared/toaster/toaster.component';
+import { ToasterModule } from './shared/toaster/toaster.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     WildCardComponent,
-    ToasterComponent
   ],
   imports: [
     BrowserModule,
+    ToasterModule,
+    SharedModule,
     AppRoutingModule,
   ],
   providers: [],

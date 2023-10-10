@@ -11,8 +11,8 @@
             <form [formGroup]="signInForm">
                 <div class="sign-in-form-email">
                     <label>Email 
-                        <span>
-                            <span *ngIf="email.hasError('required') && email.touched">Email is required.</span>
+                        <span *ngIf="this.showValidationMessage">
+                            <span *ngIf="email.hasError('required')">Email is required.</span>
                             <span *ngIf="email.hasError('email') && email.touched">Please enter valid email.</span>
                         </span>
                     </label>
@@ -22,7 +22,7 @@
                 </div>
                 <div class="sign-in-form-password">
                     <label>Password 
-                        <span>
+                        <span *ngIf="this.showValidationMessage">
                             <span *ngIf="password.hasError('required') && password.touched">Password is required.</span>
                             <span *ngIf="password.hasError('email') && password.touched">Please enter valid password.</span>
                         </span>
@@ -43,7 +43,7 @@
                         Forget password ?
                     </div>
                 </div>
-                <div class="sign-in-form-button">
+                <div class="sign-in-form-button" (click)="submitLoginForm()">
                     <button type="button">Sign in</button>
                 </div>
             </form>

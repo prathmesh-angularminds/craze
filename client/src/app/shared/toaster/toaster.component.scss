@@ -1,26 +1,28 @@
 @import '../../../assets/scss/mixins';
 @import '../../../assets/scss/variables';
 
+// Main toaster css
 .toaster {
 
     position: absolute;
+    width: 350px;
+    right: 0;
     z-index: 1;
-    width: 300px;
+    
     border: 1px solid $black;
-
-    display: flex;
 
     @include padding(1%,1%,1%,1%);
     box-shadow: 2px 2px 0px 0px $black;
+
+    transform: translate(400px,20px);
 }
 
 // Success message toaster
 .success-toaster {
     
     @include text-font(14px,600,normal,black);
+    animation: toaster-from-right 6s linear;
     background-color: $success;
-    animation: top 5s linear;
-
 }
 
 // Error message toaster
@@ -30,17 +32,20 @@
     background-color: $error;
 }
 
-.toaster-come-from-top {
 
-}
-
-@keyframes top {
+// Animation
+@keyframes toaster-from-right {
 
     0% {
-        display: none;
-        transform: translateY(10px);
+        transform: translate(400px,20px);
     } 10% {
-        display: block;
-        transform: translateY(40px);
+        transform: translate(-100px,20px);
+    }
+
+    95% {
+        transform: translate(-100px,20px);
+    }
+    100% {
+        transform: translate(400px,20px);
     }
 }

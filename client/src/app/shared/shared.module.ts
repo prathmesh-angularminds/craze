@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ToasterComponent } from './toaster/toaster.component';
-
+import { ToasterModule } from './toaster/toaster.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
-  declarations: [
-    ToasterComponent
-  ],
+  declarations: [],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+    ToasterModule,
+    HttpClientModule
+  ],
+  exports: [ToasterModule]
 })
 export class SharedModule { }

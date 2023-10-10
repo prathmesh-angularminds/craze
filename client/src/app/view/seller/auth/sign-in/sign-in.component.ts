@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { HttpService } from 'src/app/shared/http.service';
+import { ToasterServiceService } from 'src/app/shared/toaster/toaster-service/toaster-service.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,12 +11,15 @@ import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms'
 export class SignInComponent implements OnInit {
 
   // Instance variables
+  showValidationMessage: boolean = false;
   signInForm!: FormGroup;
   passwordVisibility: boolean = false;
   imageUrl: String = "eye.svg";
 
   constructor(
-    private fb: FormBuilder                       // Form Builder instance
+    private fb: FormBuilder,                       // Form Builder instance,
+    private toasterService: ToasterServiceService, // Toaster service
+    private httpService: HttpService               // Http Service
   ) { 
 
     this.initSignInForm()
@@ -24,7 +29,7 @@ export class SignInComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // Form Functions
+  ///////////////////////////////////////////////// Form Functions
 
   // This function initialize sign in form
   initSignInForm() {
@@ -46,8 +51,38 @@ export class SignInComponent implements OnInit {
   // Change password icon on clicking icon
   onPasswordVisibilityChanged() {
 
+    this.toasterService.showToaster.next(true);
+
     this.passwordVisibility = !this.passwordVisibility;
     this.imageUrl = this.passwordVisibility ? "eye-off.svg" : "eye.svg";
-    console.log(this.imageUrl);
+  }
+
+  submitLoginForm() {
+
+    let signIn = this.signInForm.value;
+
+    // If form is invalid
+    if(this.signInForm.invalid) {
+      this.showValidationMessage = true;
+      console.log(this.showValidationMessage);
+      return;
+    }
+
+    this.httpService.post('',signIn).subscribe({
+      next: () => {
+
+        this.toasterService.showToaster.next({
+          message: "Seller login in successfully ",
+          type: "Success"
+        })
+      },
+      error: (err: any) => {
+
+        this.toasterService.showToaster.next({
+          message: err.message,
+          type: "Success"
+        })
+      }
+    })
   }
 }

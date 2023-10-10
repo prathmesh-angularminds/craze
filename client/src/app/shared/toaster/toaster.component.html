@@ -1,9 +1,9 @@
 <!-- Success toaster -->
-<div class="success-toaster toaster" *ngIf="!isSuccess && show">
-    <div>{{message}} Hello </div>
+<div class="toaster" [ngClass]="show && isSuccess ? 'success-toaster' : ''">
+    <div>{{message}}</div>
 </div>
 
-<!-- Success toaster -->
-<!-- <div class="error-toaster toaster" *ngIf="!isSuccess">
-    <div>{{message}} Hello</div>
-</div> -->
+<!-- Danger toaster -->
+<div class="toaster" [ngClass]="show && !isSuccess ? 'error-toaster' : ''">
+    <div>{{message}}</div>
+</div>
