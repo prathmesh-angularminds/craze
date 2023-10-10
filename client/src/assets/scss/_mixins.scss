@@ -23,11 +23,22 @@
     height: $height;
     border: 1px solid $borderColor;
     outline: none;
+    background-color: transparent;
     
-    font-weight: bold;
+    font-weight: 700;
     padding-left: 5%;
     margin: 10px 0px 5px 0px;
     box-sizing: border-box;
+
+
+}
+
+@mixin input-bg-image($imageUrl) {
+
+    background-position: 500px center;
+    background-size: 3%;
+    background-image: url($imageUrl);
+    background-repeat: no-repeat;
 }
 
 // Form validation error 

@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WildCardComponent } from './view/wild-card/wild-card.component';
 import { LayoutModule } from './layout/layout.module';
+import { ToasterComponent } from './shared/toaster/toaster.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WildCardComponent
+    WildCardComponent,
+    ToasterComponent
   ],
   imports: [
     BrowserModule,

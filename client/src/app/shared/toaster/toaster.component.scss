@@ -1,0 +1,46 @@
+@import '../../../assets/scss/mixins';
+@import '../../../assets/scss/variables';
+
+.toaster {
+
+    position: absolute;
+    z-index: 1;
+    width: 300px;
+    border: 1px solid $black;
+
+    display: flex;
+
+    @include padding(1%,1%,1%,1%);
+    box-shadow: 2px 2px 0px 0px $black;
+}
+
+// Success message toaster
+.success-toaster {
+    
+    @include text-font(14px,600,normal,black);
+    background-color: $success;
+    animation: top 5s linear;
+
+}
+
+// Error message toaster
+.error-toaster {
+
+    @include text-font(14px,600,normal,white);
+    background-color: $error;
+}
+
+.toaster-come-from-top {
+
+}
+
+@keyframes top {
+
+    0% {
+        display: none;
+        transform: translateY(10px);
+    } 10% {
+        display: block;
+        transform: translateY(40px);
+    }
+}
