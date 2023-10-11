@@ -1,32 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { HttpService } from 'src/app/shared/http.service';
-import { ToasterServiceService } from 'src/app/shared/toaster/toaster-service/toaster-service.service';
 
+// Components, Interface and Services
+import { patternValidator } from 'src/app/shared/validators/pattern.validator';
+import { ToasterServiceService } from 'src/app/shared/toaster/toaster-service/toaster-service.service';
+import { SignIn } from 'src/app/shared/interface/signIn.interface';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent implements OnInit, OnDestroy {
 
   // Instance variables
   showValidationMessage: boolean = false;
   signInForm!: FormGroup;
   passwordVisibility: boolean = false;
-  imageUrl: String = "eye.svg";
+  imageUrl: string = "eye.svg";
 
   constructor(
     private fb: FormBuilder,                       // Form Builder instance,
     private toasterService: ToasterServiceService, // Toaster service
-    private httpService: HttpService               // Http Service
+    private httpService: HttpService,              // Http Service
+    private router: Router
   ) { 
 
     this.initSignInForm()
   }
 
+  ///////////////////////////////////////////////// Life cycle methods
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+
+    // Reset the signInForm
+    this.signInForm.reset();
   }
 
   ///////////////////////////////////////////////// Form Functions
@@ -36,9 +48,12 @@ export class SignInComponent implements OnInit {
 
     this.signInForm = this.fb.group({
       email: ["",[Validators.required,Validators.email]],
-      password: ["",[Validators.required,Validators.pattern('^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$')]]
+      password: ["",[Validators.required]]
+      // ,patternValidator(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/)
     })
   }
+
+  ////////////////// Getter 
 
   get email() {
     return this.signInForm.controls['email'];
@@ -51,26 +66,29 @@ export class SignInComponent implements OnInit {
   // Change password icon on clicking icon
   onPasswordVisibilityChanged() {
 
-    this.toasterService.showToaster.next(true);
-
     this.passwordVisibility = !this.passwordVisibility;
     this.imageUrl = this.passwordVisibility ? "eye-off.svg" : "eye.svg";
   }
 
+  // Sign in function
   submitLoginForm() {
 
-    let signIn = this.signInForm.value;
+    let signInPayload: SignIn = this.signInForm.value;
 
     // If form is invalid
+    console.log(this.signInForm.invalid);
+    console.log(this.signInForm);
     if(this.signInForm.invalid) {
       this.showValidationMessage = true;
-      console.log(this.showValidationMessage);
       return;
     }
 
-    this.httpService.post('',signIn).subscribe({
-      next: () => {
+    const url: string = "seller"
 
+    console.log("Here");
+
+    this.httpService.get(url,signInPayload).subscribe({
+      next: () => {
         this.toasterService.showToaster.next({
           message: "Seller login in successfully ",
           type: "Success"
@@ -79,10 +97,11 @@ export class SignInComponent implements OnInit {
       error: (err: any) => {
 
         this.toasterService.showToaster.next({
-          message: err.message,
-          type: "Success"
+          message: err.error.message,
+          type: "Danger"
         })
       }
     })
   }
 }
+

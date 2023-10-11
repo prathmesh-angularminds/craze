@@ -12,33 +12,31 @@
                 <div class="sign-in-form-email">
                     <label>Email 
                         <span *ngIf="this.showValidationMessage">
-                            <span *ngIf="email.hasError('required')">Email is required.</span>
-                            <span *ngIf="email.hasError('email') && email.touched">Please enter valid email.</span>
+                            <span *ngIf="email.hasError('required')">Email is required</span>
+                            <span *ngIf="email.hasError('email') && email.touched">Please enter valid email</span>
                         </span>
                     </label>
-                    <input type="email" formControlName="email" placeholder="Enter email" maxlength="35" />
+                    <input type="email" formControlName="email" placeholder="Enter email" maxlength="35"/>
                     <span class="input-bg"
                         [ngStyle]="{'background-image': 'url(../../../../../assets/images/mail.svg)'}"></span>
                 </div>
                 <div class="sign-in-form-password">
                     <label>Password 
                         <span *ngIf="this.showValidationMessage">
-                            <span *ngIf="password.hasError('required') && password.touched">Password is required.</span>
-                            <span *ngIf="password.hasError('email') && password.touched">Please enter valid password.</span>
+                            <span *ngIf="password.hasError('required'); else passwordValidation">Password is required</span>
+                            <ng-template #passwordValidation>
+                                <!-- <span *ngIf="password.hasError('passwordValidation') && password.touched">Please enter valid password</span> -->
+                            </ng-template>
                         </span>
                     </label>
                     <input [type]="passwordVisibility ? 'text' : 'password'" placeholder="Enter password" formControlName="password" maxlength="35"/>
                     <span class="input-bg"
                         [ngStyle]="{'background-image': 'url(../../../../../assets/images/' + imageUrl + ')'}"
                         (click)="onPasswordVisibilityChanged()"></span>
-                    <p>Password must have at least 1 uppercase character, 1 symbol and a number</p>
+                    <p>Password must at least have 8 letter, with at least a symbol, upper and lower case letters and a number</p>
                     
                 </div>
                 <div class="sign-in-form-password-functions">
-                    <!-- <div class="check-box">
-                        <input type="checkbox" />
-                        <label>Remember me</label>
-                    </div> -->
                     <div class="forget-password" [routerLink]="'/seller/auth/forget-password'">
                         Forget password ?
                     </div>
