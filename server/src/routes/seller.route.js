@@ -3,15 +3,15 @@ const router = express.Router();
 const validate = require('./../middleware/validate');
 const { sellerValidation } = require('./../validations/index');
 const { sellerController } = require('./../controllers/index');
+const auth = require('./../middleware/auth');
 
-// router.use((req,res,next) => {
-//     console.log("Comment");
-//     next()
-// })
+
+// Token authentication which are defined under this middleware
+router.use(auth.auth());
 
 router.route('/')
-    .get(validate(sellerValidation.signInSeller),sellerController.signInSeller)
-    .post(validate(sellerValidation.signUpSeller),sellerController.signUpSeller)
+.get(validate(sellerValidation.signInSeller),sellerController.signInSeller)
+.post(validate(sellerValidation.signUpSeller),sellerController.signUpSeller)
 
 // router.route('/:sellerId')
 //     .get()

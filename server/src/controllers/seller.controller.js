@@ -37,7 +37,7 @@ const signInSeller = catchAsync(async(req,res,next) => {
     let token = tokenService.generateAuthToken(seller._id);    
     res.cookie('access_token',token);
 
-    res.send(null).status(httpStatus.OK)
+    res.send({token: token}).status(httpStatus.OK)
 
 })
 

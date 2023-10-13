@@ -18,7 +18,7 @@ const generateToken = (payload) => {
 const generateAuthToken = (id) => {
 
     const payload = {id};
-    const token = generateJWTToken(payload);
+    const token = generateToken(payload);
     return token
 }
 

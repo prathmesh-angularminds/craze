@@ -22,6 +22,10 @@ const sellerSchema = new mongoose.Schema({
         trim: true,
         required: true
     },
+    isActive: {
+        type: Boolean,
+        default: true,
+    }
 })
 
 const Seller = mongoose.model('Seller',sellerSchema);

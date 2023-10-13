@@ -1,6 +1,7 @@
 require('dotenv').config();
-const {Strategy: JwtStrategy, ExtractJwt, Strategy} = require('passport-jwt');
-const { Seller } = require('./../models/seller.model'); 
+const {Strategy: JwtStrategy, ExtractJwt} = require('passport-jwt');
+const { Seller } = require('./../models/index'); 
+// const { Customer } = require('./../models/seller.model'); 
 
 const jwtOptions = {
     secretOrKey: process.env.JWT_SECRET,
@@ -10,8 +11,11 @@ const jwtOptions = {
 const verifyJWT = async (payload, done) => {
 
     try {
-
-        const user = await Seller.findById(payload._id);
+        let user = null;
+        if(payload.type === 'Seller') 
+            user = await Seller.findById(payload.id);
+        // else 
+            // user = await Customer.findById(payload._id);
 
         // If User is not found then if will be executed where done() will be called with an authentication failure
         if(!user) {
