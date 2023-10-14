@@ -1,47 +1,49 @@
-const ApiError = require('./../utils/apiError');
-const { Seller } = require('./../models/index');
 const catchAsync = require('./../utils/catchAsync');
 const httpStatus = require('http-status');
-const { sellerService, tokenService, organizationService } = require('./../services/index');
-const bcrypt = require('bcrypt');
+const { sellerService } = require('./../services/index');
 
-// const { v4: uuidv4} = require('uuid');
-// const { setUser, getUser} = require('./../config/sessionToUserMap');
-
-// Sign Up [Register] Seller
+// Sign Up [Register]
 const signUpSeller = catchAsync(async(req,res,next) => {
-    
-    // Check whether organization is exist or not
-    const org = await organizationService.getOrganizationById(req.body._org);
 
-    const newSeller = await sellerService.signInSeller(req.body)
+    const newSeller = await sellerService.signUpSeller(req.body)
 
-    return res.send({message: "Seller created successfully",result: newSeller}).status(200)
+    return res.send({message: "Seller is created successfully",result: newSeller}).status(200)
 })
 
-// Sign In [Login] Seller
+// Sign In [Login]
 const signInSeller = catchAsync(async(req,res,next) => {
 
-    const seller = await Seller.findOne({email: req.body.email});
-
-    // If email is not available
-    if(!seller) {
-        throw new ApiError(httpStatus.NOT_FOUND,"Invalid email or password");
-    }
-
-    // If password match
-    if(! await bcrypt.compare(req.body.password,seller.password)) {
-        throw new ApiError(httpStatus.NOT_FOUND,"Invalid email or password");
-    } 
-
-    let token = tokenService.generateAuthToken(seller._id);    
-    res.cookie('access_token',token);
-
+    let token = await sellerService.signInSeller(req.body);
     res.send({token: token}).status(httpStatus.OK)
+})
 
+const getAllSellers = catchAsync(async(req,res,next) => {
+
+    let sellers = await sellerService.getAllSellers();
+
+    res.send({result: sellers}).status(httpStatus.OK);
+})
+
+// Get seller by mongoose id
+const getSellerById = catchAsync(async(req,res,next) => {
+
+    let seller = await sellerService.getSellerById(req.params.sellerId);
+
+    res.send({result: seller}).status(httpStatus.OK)
+})
+
+// Delete seller by mongoose id
+const deleteSellerById = catchAsync(async(req,res,next) => {
+
+    let seller = await sellerService.deleteSellerById(req.params.sellerId);
+
+    res.send({result: null,message: "Seller deleted successfully"}).status(httpStatus.OK);
 })
 
 module.exports = {
     signUpSeller,
-    signInSeller
+    signInSeller,
+    getSellerById,
+    deleteSellerById,
+    getAllSellers
 }

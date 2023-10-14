@@ -5,6 +5,7 @@ const router = express.Router();
 const productRouter = require('./product.route');
 const sellerRouter = require('./seller.route');
 const organizationRouter = require('./organization.route');
+const authRouter = require('./auth.route');
 
 const routes = [
     {
@@ -18,6 +19,10 @@ const routes = [
     {
         path: "/organization",
         router: organizationRouter
+    },
+    {
+        path: '/auth',
+        router: authRouter
     }
 ]
 

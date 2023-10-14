@@ -15,9 +15,8 @@ const generateToken = (payload) => {
  * @param {Mongoose id} id 
  * @returns jwt token
  */
-const generateAuthToken = (id) => {
+const generateAuthToken = (payload) => {
 
-    const payload = {id};
     const token = generateToken(payload);
     return token
 }
