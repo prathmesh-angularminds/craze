@@ -1,6 +1,7 @@
 // Packages
 const bcrypt = require('bcrypt');
 const httpStatus = require('http-status');
+const { tokenType } = require('./../config/tokens');
 
 // Models
 const { Seller } = require('./../models/index');
@@ -12,6 +13,10 @@ const tokenService = require('./token.service');
 // Utils
 const ApiError = require('./../utils/apiError');
 const { default: mongoose } = require('mongoose');
+const { object } = require('joi');
+
+
+
 
 /**
  * Sign Up
@@ -41,6 +46,8 @@ const signUpSeller = async (newSeller) => {
     return Seller.create(newSeller);
 }
 
+
+
 /**
  * 
  * @param {object} signInPayload 
@@ -65,27 +72,64 @@ const signInSeller = async (signInPayload) => {
         type: 'Seller'
     }
 
-    let token = tokenService.generateAuthToken(tokenPayload);    
+    let token = tokenService.generateAuthToken(tokenPayload,tokenType.USER_REGISTRATION);    
     return token;
 }
 
+
+
+/**
+ * 
+ * @param {*} email 
+ * @returns 
+ */
 const forgetPassword = async (email) => {
 
     const seller = await getSellerByEmailId(email);
-    const token = tokenService.generateForgetPasswordToken({
+    const token = tokenService.generateResetPasswordToken({
         id: seller._id,
         type: 'Seller'
-    }); 
+    },tokenType.RESET_PASSWORD + seller.password); 
 
     return `http://localhost:4200/seller/auth/reset-password/${seller._id}?token=${token}`;
     
 }
 
-const verifyResetPassword = async (token) => {
+/**
+ * 
+ * @param {*} token 
+ */
+const verifyResetPassword = async (sellerId,token) => {
 
-    const resetPasswordTokenDoc = tokenService.verifyJwtToken(token)
-    console.log(resetPasswordTokenDoc)
+    // If error occur throw an error for reset password verification failed
+    try {
+        let seller = await getSellerById(sellerId);
+        
+        const resetPasswordTokenDoc = tokenService.verifyJwtToken(token,tokenType.RESET_PASSWORD + seller.password);
+        seller = await getSellerById(resetPasswordTokenDoc.id);
 
+        return seller;
+    } catch(error) {
+
+        throw new ApiError(httpStatus.UNAUTHORIZED,"Reset password verification failed");
+    }
+}
+
+
+const resetPassword = async (sellerId,token,password) => {
+
+    // If error occur throw an error for reset password verification failed
+    try {
+        let seller = await getSellerById(sellerId);
+        const resetPasswordTokenDoc = tokenService.verifyJwtToken(token,tokenType.RESET_PASSWORD + seller.password);
+        
+        let decryptedPassword = await bcrypt.hash(password,12);
+        seller = await updateSellerById(resetPasswordTokenDoc.id,{password: decryptedPassword});
+        return seller;
+    } catch(error) {
+
+        throw new ApiError(httpStatus.UNAUTHORIZED,"Reset password verification failed");
+    }
 }
 
 /**
@@ -116,6 +160,17 @@ const getSellerById = async (sellerId) => {
     return seller;
 }
 
+
+const updateSellerById = async (sellerId,payload) => {
+
+    const seller = await getSellerById(sellerId);
+    console.log(seller,payload);
+    Object.assign(seller,payload)
+    console.log(seller);
+    await seller.save();
+
+} 
+
 /**
  * 
  * @param {string} email 
@@ -145,6 +200,7 @@ module.exports = {
     signInSeller,
     forgetPassword,
     verifyResetPassword,
+    resetPassword,
     getAllSellers,
     getSellerById,
     deleteSellerById

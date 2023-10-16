@@ -17,6 +17,7 @@ const signInSeller = catchAsync(async(req,res,next) => {
     res.send({token: token}).status(httpStatus.OK)
 })
 
+// Forget password
 const forgetPassword = catchAsync(async(req,res,next) => {
 
     const link = await sellerService.forgetPassword(req.body.email);
@@ -25,15 +26,25 @@ const forgetPassword = catchAsync(async(req,res,next) => {
     res.send({message: "Reset password link is send to " + req.body.email + " mail"}).status(httpStatus.OK)
 })
 
+// Verify reset password
 const verifyResetPassword = catchAsync(async(req,res,next) => {
 
-    sellerService.verifyResetPassword(req.params.token)
+    const seller = await sellerService.verifyResetPassword(req.params.sellerId,req.query.token)
+    res.send({verified: true}).status(httpStatus.OK)
+})
+
+// Reset password
+const resetPassword = catchAsync(async(req,res,next) => {
+
+    const seller = await sellerService.resetPassword(req.params.sellerId,req.query.token,req.body.password)
+
+    res.send({message: "Password reset successfully"}).status(httpStatus.OK)
+
 })
 
 const getAllSellers = catchAsync(async(req,res,next) => {
 
     let sellers = await sellerService.getAllSellers();
-
     res.send({result: sellers}).status(httpStatus.OK);
 })
 
@@ -41,15 +52,13 @@ const getAllSellers = catchAsync(async(req,res,next) => {
 const getSellerById = catchAsync(async(req,res,next) => {
 
     let seller = await sellerService.getSellerById(req.params.sellerId);
-
     res.send({result: seller}).status(httpStatus.OK)
 })
 
 // Delete seller by mongoose id
 const deleteSellerById = catchAsync(async(req,res,next) => {
 
-    let seller = await sellerService.deleteSellerById(req.params.sellerId);
-
+    await sellerService.deleteSellerById(req.params.sellerId);
     res.send({result: null,message: "Seller deleted successfully"}).status(httpStatus.OK);
 })
 
@@ -58,6 +67,7 @@ module.exports = {
     signInSeller,
     forgetPassword,
     verifyResetPassword,
+    resetPassword,
     getSellerById,
     deleteSellerById,
     getAllSellers

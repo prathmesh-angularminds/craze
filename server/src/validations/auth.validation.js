@@ -23,9 +23,24 @@ const forgetPassword = {
     })
 }
 
-const verifyResetPassword = {
+const verifySellerResetPassword = {
     params: Joi.object().keys({
+        sellerId: Joi.string().required()
+    }),
+    query: Joi.object().keys({
         token: Joi.string().required()
+    })
+}
+
+const resetSellerPassword = {
+    params: Joi.object().keys({
+        sellerId: Joi.string().required()
+    }),
+    query: Joi.object().keys({
+        token: Joi.string().required()
+    }),
+    body: Joi.object().keys({
+        password: Joi.string().required()
     })
 }
 
@@ -33,5 +48,6 @@ module.exports = {
     signIn,
     sellerSignUp,
     forgetPassword,
-    verifyResetPassword
+    verifySellerResetPassword,
+    resetSellerPassword
 }

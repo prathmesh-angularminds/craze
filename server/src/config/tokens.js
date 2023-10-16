@@ -1,5 +1,6 @@
-const tokens = {
-    forgetPassword: "FORGET_PASSWORD_SECRET_KEY"
+const tokenType = {
+    USER_REGISTRATION: "USER_REGISTRATION_SECRET_KEY",
+    RESET_PASSWORD: "RESET_PASSWORD_SECRET_KEY"
 }
 
-module.exports = tokens;
+module.exports = {tokenType};

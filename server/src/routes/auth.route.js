@@ -18,15 +18,15 @@ router
     .post(validate(authValidation.sellerSignUp), sellerController.signUpSeller);                // Seller Registration
 
 router
-    .route('/seller/forget-password')                                                            // Seller Forget Password
+    .route('/seller/forget-password')                                                           // Seller Forget Password
     .post(validate(authValidation.forgetPassword),sellerController.forgetPassword);
 
 router
-    .route('/seller/reset-password/:token')
-    .get(validate(authValidation.verifyResetPassword),sellerController.verifyResetPassword)
+    .route('/seller/reset-password/:sellerId')                                                  // Seller Reset Password and Verify Reset Password
+    .get(validate(authValidation.verifySellerResetPassword),sellerController.verifyResetPassword)
+    .post(validate(authValidation.resetSellerPassword),sellerController.resetPassword)
 
 // Customer Authentication
 
-// router.route("/customer").get().post();
 
 module.exports = router;
