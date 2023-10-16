@@ -17,18 +17,21 @@ const sellerSignUp = {
     })
 }
 
-const customerSignUp = {
+const forgetPassword = {
     body: Joi.object().keys({
-
+        email: Joi.string().email({tlds: {allow: ['com','net','in']}}).required(),          // tlds means the domain should be .com, .net or .in
     })
 }
 
-const forgetPassword = {
-
+const verifyResetPassword = {
+    params: Joi.object().keys({
+        token: Joi.string().required()
+    })
 }
 
 module.exports = {
     signIn,
     sellerSignUp,
-    customerSignUp
+    forgetPassword,
+    verifyResetPassword
 }

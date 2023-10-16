@@ -6,8 +6,8 @@ const jwt = require('jsonwebtoken');
  * @param {Object} payload 
  * @returns jwt token 
  */
-const generateToken = (payload) => {
-    return jwt.sign(payload,process.env.JWT_SECRET);
+const generateToken = (payload,expiresIn) => {
+    return jwt.sign(payload,process.env.JWT_SECRET,{expiresIn});
 }
 
 /**
@@ -17,20 +17,30 @@ const generateToken = (payload) => {
  */
 const generateAuthToken = (payload) => {
 
-    const token = generateToken(payload);
+    const expiresIn = '1d';
+    const token = generateToken(payload,expiresIn);
     return token
 }
 
-// const generateForgetPasswordToken = () => {
+const generateForgetPasswordToken = (payload) => {
 
-// }
+    const expiresIn = '15m';
+    const token = generateToken(payload,expiresIn);
+    return token
+}
 
 // const generateInviteUserToken = () => {
 
 // }
 
+const verifyJwtToken = (token) => {
+
+    return jwt.verify(token,process.env.JWT_SECRET);
+}
+
 module.exports = {
     generateAuthToken,
-    // generateForgetPasswordToken,
+    generateForgetPasswordToken,
+    verifyJwtToken
     // generateInviteUserToken
 }

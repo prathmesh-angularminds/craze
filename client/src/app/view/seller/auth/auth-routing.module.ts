@@ -22,6 +22,10 @@ const routes:  Routes = [
         path: "forget-password",
         component: ForgetPasswordComponent,
     },
+    {
+        path: "reset-password/:sellerId",
+        component: ForgetPasswordComponent,
+    },
 ] 
 
 @NgModule({

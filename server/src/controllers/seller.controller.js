@@ -17,6 +17,19 @@ const signInSeller = catchAsync(async(req,res,next) => {
     res.send({token: token}).status(httpStatus.OK)
 })
 
+const forgetPassword = catchAsync(async(req,res,next) => {
+
+    const link = await sellerService.forgetPassword(req.body.email);
+    console.log(link);
+    
+    res.send({message: "Reset password link is send to " + req.body.email + " mail"}).status(httpStatus.OK)
+})
+
+const verifyResetPassword = catchAsync(async(req,res,next) => {
+
+    sellerService.verifyResetPassword(req.params.token)
+})
+
 const getAllSellers = catchAsync(async(req,res,next) => {
 
     let sellers = await sellerService.getAllSellers();
@@ -43,6 +56,8 @@ const deleteSellerById = catchAsync(async(req,res,next) => {
 module.exports = {
     signUpSeller,
     signInSeller,
+    forgetPassword,
+    verifyResetPassword,
     getSellerById,
     deleteSellerById,
     getAllSellers

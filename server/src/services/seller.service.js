@@ -69,13 +69,32 @@ const signInSeller = async (signInPayload) => {
     return token;
 }
 
+const forgetPassword = async (email) => {
+
+    const seller = await getSellerByEmailId(email);
+    const token = tokenService.generateForgetPasswordToken({
+        id: seller._id,
+        type: 'Seller'
+    }); 
+
+    return `http://localhost:4200/seller/auth/reset-password/${seller._id}?token=${token}`;
+    
+}
+
+const verifyResetPassword = async (token) => {
+
+    const resetPasswordTokenDoc = tokenService.verifyJwtToken(token)
+    console.log(resetPasswordTokenDoc)
+
+}
+
 /**
  * 
  * @returns seller list
  */
-const getAllSellers = () => {
+const getAllSellers = async () => {
 
-    const sellers = Seller.find();
+    const sellers = await Seller.find();
 
     return sellers;
 }
@@ -106,6 +125,10 @@ const getSellerByEmailId = async (email) => {
 
     const seller = await Seller.findOne({email});
 
+    if(!seller) {
+        throw new ApiError(httpStatus.NOT_FOUND,'Seller not found')
+    }
+
     return seller;
 }
 
@@ -120,6 +143,8 @@ const deleteSellerById = async (sellerId) => {
 module.exports = {
     signUpSeller,
     signInSeller,
+    forgetPassword,
+    verifyResetPassword,
     getAllSellers,
     getSellerById,
     deleteSellerById

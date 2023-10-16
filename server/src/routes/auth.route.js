@@ -17,6 +17,14 @@ router
     .get(validate(authValidation.signIn), sellerController.signInSeller)                        // Seller Login
     .post(validate(authValidation.sellerSignUp), sellerController.signUpSeller);                // Seller Registration
 
+router
+    .route('/seller/forget-password')                                                            // Seller Forget Password
+    .post(validate(authValidation.forgetPassword),sellerController.forgetPassword);
+
+router
+    .route('/seller/reset-password/:token')
+    .get(validate(authValidation.verifyResetPassword),sellerController.verifyResetPassword)
+
 // Customer Authentication
 
 // router.route("/customer").get().post();
