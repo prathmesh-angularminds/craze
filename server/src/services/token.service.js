@@ -1,13 +1,14 @@
 require('dotenv').config()
 const jwt = require('jsonwebtoken');
+const {tokens} = require('./../config/tokens');
 
 /**
  * This method create a new json web token
  * @param {Object} payload 
  * @returns jwt token 
  */
-const generateToken = (payload,expiresIn) => {
-    return jwt.sign(payload,process.env.JWT_SECRET,{expiresIn});
+const generateToken = (payload,secretKey,expiresIn) => {
+    return jwt.sign(payload,secretKey,{expiresIn});
 }
 
 /**
@@ -15,32 +16,29 @@ const generateToken = (payload,expiresIn) => {
  * @param {Mongoose id} id 
  * @returns jwt token
  */
-const generateAuthToken = (payload) => {
+const generateAuthToken = (payload,authTokenKey) => {
 
     const expiresIn = '1d';
-    const token = generateToken(payload,expiresIn);
+    const secretKey = process.env.JWT_SECRET + authTokenKey
+    const token = generateToken(payload,secretKey,expiresIn);
     return token
 }
 
-const generateForgetPasswordToken = (payload) => {
+const generateResetPasswordToken = (payload,forgetPasswordKey) => {
 
     const expiresIn = '15m';
-    const token = generateToken(payload,expiresIn);
+    const secretKey = process.env.JWT_SECRET + forgetPasswordKey
+    const token = generateToken(payload,secretKey,expiresIn);
     return token
 }
 
-// const generateInviteUserToken = () => {
+const verifyJwtToken = (token,secretKey) => {
 
-// }
-
-const verifyJwtToken = (token) => {
-
-    return jwt.verify(token,process.env.JWT_SECRET);
+    return jwt.verify(token,process.env.JWT_SECRET + secretKey);
 }
 
 module.exports = {
     generateAuthToken,
-    generateForgetPasswordToken,
+    generateResetPasswordToken,
     verifyJwtToken
-    // generateInviteUserToken
 }
