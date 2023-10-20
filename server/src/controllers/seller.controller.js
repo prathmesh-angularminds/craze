@@ -1,6 +1,6 @@
 const catchAsync = require('./../utils/catchAsync');
 const httpStatus = require('http-status');
-const { sellerService } = require('./../services/index');
+const { emailService, sellerService } = require('./../services/index');
 
 // Sign Up [Register]
 const signUpSeller = catchAsync(async(req,res,next) => {
@@ -21,6 +21,8 @@ const forgetPassword = catchAsync(async(req,res,next) => {
 
     const link = await sellerService.forgetPassword(req.body.email);
     console.log(link);
+
+    await emailService.sendResetPasswordMail();
     
     res.send({message: "Reset password link is send to " + req.body.email + " mail"}).status(httpStatus.OK)
 })
