@@ -4,12 +4,16 @@
 // Main toaster css
 .toaster {
 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     position: absolute;
-    width: 350px;
+    width: 400px;
     right: 0;
     z-index: 1;
     
-    border: 1px solid $black;
+    border: 1.5px solid $black;
+    overflow: hidden;
 
     @include padding(1%,1%,1%,1%);
     box-shadow: 2px 2px 0px 0px $black;
@@ -20,16 +24,96 @@
 // Success message toaster
 .success-toaster {
     
-    @include text-font(14px,600,normal,black);
-    animation: toaster-from-right 6s linear;
-    background-color: $success;
+    &-circle {
+
+        width: 15%;
+        
+        div {
+            width: 50px;
+            height: 50px;
+
+            border-radius: 50px;
+            @include padding(2%,2%,2%,2%);
+            
+            border: 1px solid $black;
+
+            // Image styling
+            background: url('../../../assets/images/thumbs-up.svg');
+            background-size: 20px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: $success;
+        }
+    }
+    
+    &-message {
+        
+        width: 82%;
+
+        // Title
+        span {
+
+            @include text-font(16px,600,normal,black);
+            @include margin(0px,0px,50px,0px);
+        }
+
+        // Sub message
+        p {
+
+            @include text-font(14px,400,normal,black);
+            line-height: 2;
+            word-break: break-all;
+        }
+    }
+
+    animation: toaster-from-right 6s ease-in;
 }
 
 // Error message toaster
 .error-toaster {
 
-    @include text-font(14px,600,normal,white);
-    background-color: $error;
+    &-circle {
+        
+        div {
+            width: 50px;
+            height: 50px;
+
+            border-radius: 50px;
+            @include padding(2%,2%,2%,2%);
+            
+            border: 1px solid $black;
+
+            // Image styling
+            background: url('../../../assets/images/alert-triangle.svg');
+            background-size: 20px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: $error;
+
+        }
+    }
+    
+    &-message {
+        
+        width: 82%;
+
+        // Title
+        span {
+
+            @include text-font(16px,600,normal,black);
+            @include margin(0px,0px,50px,0px);
+        }
+
+        // Sub message
+        p {
+
+            @include text-font(14px,400,normal,black);
+            line-height: 2;
+            word-break: break-all;
+        }
+    }
+
+    animation: toaster-from-right 6s ease-in;
 }
 
 
@@ -38,7 +122,7 @@
 
     0% {
         transform: translate(400px,20px);
-    } 10% {
+    } 5% {
         transform: translate(-100px,20px);
     }
 

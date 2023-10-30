@@ -24,7 +24,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,                       // Form Builder instance,
     private toasterService: ToasterServiceService, // Toaster service
     private httpService: HttpService,              // Http Service
-    private router: Router
+    // private router: Router
   ) { 
 
     this.initSignInForm()
@@ -48,8 +48,7 @@ export class SignInComponent implements OnInit, OnDestroy {
 
     this.signInForm = this.fb.group({
       email: ["",[Validators.required,Validators.email]],
-      password: ["",[Validators.required]]
-      // ,patternValidator(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/)
+      password: ["",[Validators.required,patternValidator(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/)]]
     })
   }
 
@@ -75,17 +74,18 @@ export class SignInComponent implements OnInit, OnDestroy {
 
     let signInPayload: SignIn = this.signInForm.value;
 
-    // If form is invalid
-    console.log(this.signInForm.invalid);
-    console.log(this.signInForm);
+    this.toasterService.showToaster.next({
+      message: 'err.error.message',
+      type: "Danger"
+    })
+
+    // If form is invalid show validation messages
     if(this.signInForm.invalid) {
       this.showValidationMessage = true;
       return;
     }
 
     const url: string = "seller"
-
-    console.log("Here");
 
     this.httpService.get(url,signInPayload).subscribe({
       next: () => {

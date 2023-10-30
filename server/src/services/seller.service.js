@@ -13,10 +13,6 @@ const tokenService = require('./token.service');
 // Utils
 const ApiError = require('./../utils/apiError');
 const { default: mongoose } = require('mongoose');
-const { object } = require('joi');
-
-
-
 
 /**
  * Sign Up
@@ -75,8 +71,6 @@ const signInSeller = async (signInPayload) => {
     let token = tokenService.generateAuthToken(tokenPayload,tokenType.USER_REGISTRATION);    
     return token;
 }
-
-
 
 /**
  * 

@@ -1,9 +1,22 @@
 <!-- Success toaster -->
 <div class="toaster" [ngClass]="show && isSuccess ? 'success-toaster' : ''">
-    <div>{{message}}</div>
+    <div class="success-toaster-circle">
+        <div></div>
+    </div>
+    <div class="success-toaster-message">
+        <span>Success</span>
+        <p>{{message}} Invalid user id and password</p>
+    </div>
+    
 </div>
 
 <!-- Danger toaster -->
 <div class="toaster" [ngClass]="show && !isSuccess ? 'error-toaster' : ''">
-    <div>{{message}}</div>
+    <div class="error-toaster-circle">
+        <div></div>
+    </div>
+    <div class="error-toaster-message">
+        <span>Error</span>
+        <p>{{message}} Invalid user id and password</p>
+    </div>
 </div>
