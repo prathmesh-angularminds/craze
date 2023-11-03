@@ -1,42 +1,113 @@
-const catchAsync = require('./../utils/catchAsync');
+// Packages
+const bcrypt = require('bcrypt');
 const httpStatus = require('http-status');
-const { emailService, sellerService } = require('./../services/index');
+
+// Configs
+const { tokenType } = require('./../config/tokens');
+
+// Services
+const { emailService, sellerService, organizationService, tokenService } = require('./../services/index');
+
+// Utils
+const ApiError = require('./../utils/apiError');
+const catchAsync = require('./../utils/catchAsync');
+
+
 
 // Sign Up [Register]
-const signUpSeller = catchAsync(async(req,res,next) => {
+const signUpSeller = catchAsync(async(req,res) => {
 
-    const newSeller = await sellerService.signUpSeller(req.body)
+    let org = organizationService.getOrganizationById(newSeller._org);
+
+    // If organization does not exist throw an error
+    if(!org) {
+        throw new ApiError(httpStatus.BAD_REQUEST,"Organization does not exist");
+    }  
+
+    let seller = await sellerService.getSellerByEmailId(newSeller.email);
+
+    // If email is already exist throw an error
+    if(seller) {
+        throw new ApiError(httpStatus.BAD_REQUEST,"Email already exist!!");
+    }
+
+    seller = req.body;
+
+    // Decrypting password
+    let decryptedPassword = await bcrypt.hash(seller.password,12);
+    Object.assign(seller,{password: decryptedPassword});
+
+    const newSeller = await sellerService.createSeller(seller)
 
     return res.send({message: "Seller is created successfully",result: newSeller}).status(200)
 })
 
-// Sign In [Login]
-const signInSeller = catchAsync(async(req,res,next) => {
 
-    let token = await sellerService.signInSeller(req.body);
+// Sign In [Login]
+const signInSeller = catchAsync(async(req,res) => { 
+
+    let seller;
+
+    // If seller not found catch the error thrown from getSellerByEmailId and throw a new error with new message
+    try {
+
+        seller = await sellerService.getSellerByEmailId(req.body.email);
+    } catch(err) {
+
+        // If email is not available throw an error
+        throw new ApiError(httpStatus.NOT_FOUND, "Invalid email or password");
+    }
+
+    // If password does not match throw an error    
+    if (! await bcrypt.compare(req.body.password, seller.password)) {
+        throw new ApiError(httpStatus.NOT_FOUND, "Invalid email or password");
+    }
+
+    let token = tokenService.generateAuthToken({
+        id: seller._id,
+        type: 'Seller'
+    }, tokenType.USER_REGISTRATION);
+
     res.send({token: token}).status(httpStatus.OK)
 })
 
 // Forget password
-const forgetPassword = catchAsync(async(req,res,next) => {
+const forgetPassword = catchAsync(async(req,res) => {
 
-    const link = await sellerService.forgetPassword(req.body.email);
-    console.log(link);
+    const seller = await sellerService.getSellerByEmailId(req.body.email);
+    
+    const token = tokenService.generateResetPasswordToken({
+        id: seller._id,
+        type: 'Seller'
+    }, tokenType.RESET_PASSWORD + seller.password);
 
-    await emailService.sendResetPasswordMail();
+    await emailService.sendResetPasswordMail(
+        {
+            to: req.body.email,
+        },
+        {
+            text: "This is a reset password mail"
+        },
+        {
+            token: token,
+            sellerId: seller._id,
+            sellerName: seller.name,
+            _org: seller._org
+        }
+    );
     
     res.send({message: "Reset password link is send to " + req.body.email + " mail"}).status(httpStatus.OK)
 })
 
 // Verify reset password
-const verifyResetPassword = catchAsync(async(req,res,next) => {
+const verifyResetPassword = catchAsync(async(req,res) => {
 
     const seller = await sellerService.verifyResetPassword(req.params.sellerId,req.query.token)
     res.send({verified: true}).status(httpStatus.OK)
 })
 
 // Reset password
-const resetPassword = catchAsync(async(req,res,next) => {
+const resetPassword = catchAsync(async(req,res) => {
 
     const seller = await sellerService.resetPassword(req.params.sellerId,req.query.token,req.body.password)
 

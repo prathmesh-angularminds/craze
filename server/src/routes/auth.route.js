@@ -8,22 +8,16 @@ const { authValidation } = require("./../validations");
 const { sellerController } = require("./../controllers/index");
 
 // Middlewares
-// const auth = require("./../middleware/auth");
 const validate = require("./../middleware/validate");
 
 // Seller Authentication
-router
-    .route("/seller")
-    .get(validate(authValidation.signIn), sellerController.signInSeller)                        // Seller Login
-    .post(validate(authValidation.sellerSignUp), sellerController.signUpSeller);                // Seller Registration
+router.route("/seller/sign-in").post(validate(authValidation.signIn), sellerController.signInSeller)                        // Seller Login
+router.route("/seller/sign-up").post(validate(authValidation.sellerSignUp), sellerController.signUpSeller);                // Seller Registration
 
-router
-    .route('/seller/forget-password')                                                           // Seller Forget Password
-    .post(validate(authValidation.forgetPassword),sellerController.forgetPassword);
+router.route('/seller/forget-password').post(validate(authValidation.forgetPassword),sellerController.forgetPassword);     // Seller Forget Password
 
-router
-    .route('/seller/reset-password/:sellerId')                                                  // Seller Reset Password and Verify Reset Password
-    .get(validate(authValidation.verifySellerResetPassword),sellerController.verifyResetPassword)
+router.route('/seller/reset-password/:sellerId')                                                  // Seller Reset Password and Verify Reset Password
+.get(validate(authValidation.verifySellerResetPassword),sellerController.verifyResetPassword)
     .post(validate(authValidation.resetSellerPassword),sellerController.resetPassword)
 
 // Customer Authentication

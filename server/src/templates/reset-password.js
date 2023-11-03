@@ -1,0 +1,1 @@
+const reset_password_template = "<div>Hello </div>"

@@ -7,122 +7,55 @@ const { tokenType } = require('./../config/tokens');
 const { Seller } = require('./../models/index');
 
 // Services
-const organizationService = require('./organization.service');
 const tokenService = require('./token.service');
 
 // Utils
 const ApiError = require('./../utils/apiError');
-const { default: mongoose } = require('mongoose');
 
 /**
- * Sign Up
+ * Create new seller
  * @param { Object } seller 
- * @returns new seller
+ * @returns { Promise<Seller> }
  */
-const signUpSeller = async (newSeller) => {
-
-    let org = organizationService.getOrganizationById(newSeller._org);
-
-    // If organization does not exist throw an error
-    if(!org) {
-        throw new ApiError(httpStatus.BAD_REQUEST,"Organization does not exist");
-    }
-
-    const seller = await getSellerByEmailId(newSeller.email);
-
-    // If email is already exist
-    if(seller) {
-        throw new ApiError(httpStatus.BAD_REQUEST,"Email already exist!!");
-    }
-
-    // Decrypting password
-    let decryptedPassword = await bcrypt.hash(newSeller.password,12);
-    Object.assign(newSeller,{password: decryptedPassword});
+const createSeller = async (newSeller) => {
 
     return Seller.create(newSeller);
-}
-
-
-
-/**
- * 
- * @param {object} signInPayload 
- * @returns jwt token
- */
-const signInSeller = async (signInPayload) => {
-
-    const seller = await getSellerByEmailId(signInPayload.email);
-
-    // If email is not available
-    if(!seller) {
-        throw new ApiError(httpStatus.NOT_FOUND,"Invalid email or password");
-    }
-
-    // If password match
-    if(! await bcrypt.compare(signInPayload.password,seller.password)) {
-        throw new ApiError(httpStatus.NOT_FOUND,"Invalid email or password");
-    } 
-
-    const tokenPayload = {
-        id: seller._id,
-        type: 'Seller'
-    }
-
-    let token = tokenService.generateAuthToken(tokenPayload,tokenType.USER_REGISTRATION);    
-    return token;
-}
-
-/**
- * 
- * @param {*} email 
- * @returns 
- */
-const forgetPassword = async (email) => {
-
-    const seller = await getSellerByEmailId(email);
-    const token = tokenService.generateResetPasswordToken({
-        id: seller._id,
-        type: 'Seller'
-    },tokenType.RESET_PASSWORD + seller.password); 
-
-    return `http://localhost:4200/seller/auth/reset-password/${seller._id}?token=${token}`;
-    
 }
 
 /**
  * 
  * @param {*} token 
  */
-const verifyResetPassword = async (sellerId,token) => {
+const verifyResetPassword = async (sellerId, token) => {
 
     // If error occur throw an error for reset password verification failed
     try {
         let seller = await getSellerById(sellerId);
-        
-        const resetPasswordTokenDoc = tokenService.verifyJwtToken(token,tokenType.RESET_PASSWORD + seller.password);
+
+        const resetPasswordTokenDoc = tokenService.verifyJwtToken(token, tokenType.RESET_PASSWORD + seller.password);
         seller = await getSellerById(resetPasswordTokenDoc.id);
 
         return seller;
-    } catch(error) {
+    } catch (error) {
 
-        throw new ApiError(httpStatus.UNAUTHORIZED,"Reset password verification failed");
+        throw new ApiError(httpStatus.UNAUTHORIZED, "Reset password verification failed");
     }
 }
 
 
-const resetPassword = async (sellerId,token,password) => {
+const resetPassword = async (sellerId, token, password) => {
 
     // If error occur throw an error for reset password verification failed
     try {
         let seller = await getSellerById(sellerId);
-        const resetPasswordTokenDoc = tokenService.verifyJwtToken(token,tokenType.RESET_PASSWORD + seller.password);
-        
-        let decryptedPassword = await bcrypt.hash(password,12);
-        seller = await updateSellerById(resetPasswordTokenDoc.id,{password: decryptedPassword});
-        return seller;
-    } catch(error) {
+        const resetPasswordTokenDoc = tokenService.verifyJwtToken(token, tokenType.RESET_PASSWORD + seller.password);
 
-        throw new ApiError(httpStatus.UNAUTHORIZED,"Reset password verification failed");
+        let decryptedPassword = await bcrypt.hash(password, 12);
+        seller = await updateSellerById(resetPasswordTokenDoc.id, { password: decryptedPassword });
+        return seller;
+    } catch (error) {
+
+        throw new ApiError(httpStatus.UNAUTHORIZED, "Reset password verification failed");
     }
 }
 
@@ -147,23 +80,23 @@ const getSellerById = async (sellerId) => {
     const seller = Seller.findById(sellerId);
 
     // If seller is not available throw error
-    if(!seller) {
-        throw new ApiError(httpStatus.NOT_FOUND,"Seller not found");
+    if (!seller) {
+        throw new ApiError(httpStatus.NOT_FOUND, "Seller not found");
     }
 
     return seller;
 }
 
 
-const updateSellerById = async (sellerId,payload) => {
+const updateSellerById = async (sellerId, payload) => {
 
     const seller = await getSellerById(sellerId);
-    console.log(seller,payload);
-    Object.assign(seller,payload)
+    console.log(seller, payload);
+    Object.assign(seller, payload)
     console.log(seller);
     await seller.save();
 
-} 
+}
 
 /**
  * 
@@ -172,10 +105,10 @@ const updateSellerById = async (sellerId,payload) => {
  */
 const getSellerByEmailId = async (email) => {
 
-    const seller = await Seller.findOne({email});
+    const seller = await Seller.findOne({ email });
 
-    if(!seller) {
-        throw new ApiError(httpStatus.NOT_FOUND,'Seller not found')
+    if (!seller) {
+        throw new ApiError(httpStatus.NOT_FOUND, 'Seller not found')
     }
 
     return seller;
@@ -184,19 +117,18 @@ const getSellerByEmailId = async (email) => {
 const deleteSellerById = async (sellerId) => {
 
     let seller = await getSellerById(sellerId);
-    seller = await Seller.deleteOne({_id: sellerId});
+    seller = await Seller.deleteOne({ _id: sellerId });
 
     return seller;
 }
 
 module.exports = {
-    signUpSeller,
-    signInSeller,
-    forgetPassword,
+    createSeller,
     verifyResetPassword,
     resetPassword,
     getAllSellers,
     getSellerById,
+    getSellerByEmailId,
     deleteSellerById
 }
 

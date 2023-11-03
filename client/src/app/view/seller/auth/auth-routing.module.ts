@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router'; // CLI imports router
+
+// Components
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes:  Routes = [
     {
@@ -24,7 +27,7 @@ const routes:  Routes = [
     },
     {
         path: "reset-password/:sellerId",
-        component: ForgetPasswordComponent,
+        component: ResetPasswordComponent,
     },
 ] 
 

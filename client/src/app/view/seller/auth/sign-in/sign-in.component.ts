@@ -7,6 +7,7 @@ import { HttpService } from 'src/app/shared/http.service';
 import { patternValidator } from 'src/app/shared/validators/pattern.validator';
 import { ToasterServiceService } from 'src/app/shared/toaster/toaster-service/toaster-service.service';
 import { SignIn } from 'src/app/shared/interface/signIn.interface';
+
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -24,7 +25,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,                       // Form Builder instance,
     private toasterService: ToasterServiceService, // Toaster service
     private httpService: HttpService,              // Http Service
-    // private router: Router
+    private router: Router
   ) { 
 
     this.initSignInForm()
@@ -74,25 +75,22 @@ export class SignInComponent implements OnInit, OnDestroy {
 
     let signInPayload: SignIn = this.signInForm.value;
 
-    this.toasterService.showToaster.next({
-      message: 'err.error.message',
-      type: "Danger"
-    })
-
     // If form is invalid show validation messages
     if(this.signInForm.invalid) {
       this.showValidationMessage = true;
       return;
     }
 
-    const url: string = "seller"
+    const url: string = "auth/seller/sign-in"
 
-    this.httpService.get(url,signInPayload).subscribe({
+    this.httpService.post(url,signInPayload).subscribe({
       next: () => {
         this.toasterService.showToaster.next({
-          message: "Seller login in successfully ",
+          message: "Seller login in successfully",
           type: "Success"
         })
+
+        // this.router.navigateByUrl([''])
       },
       error: (err: any) => {
 

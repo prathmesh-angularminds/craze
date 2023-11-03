@@ -14,9 +14,9 @@ export class HttpService {
     return this.http.post((environment.URL + url),payload);
   }
 
-  get(url: string,payload: any) {
+  get(url: string) {
 
-    return this.http.get((environment.URL + url),payload);
+    return this.http.get((environment.URL + url));
   }
 
   patch(url: string,payload: any) {

@@ -25,10 +25,6 @@ passport.use('jwt',jwtStrategy)
 
 app.use('/api',router)
 
-app.use((req,res,next) => {
-    console.log("In error");
-})
-
 app.use(catchAsync((req,res,next) => {
     throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR,"Internal server error !!!")
 }))
