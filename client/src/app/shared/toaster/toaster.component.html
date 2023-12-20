@@ -1,22 +1,15 @@
-<!-- Success toaster -->
-<div class="toaster" [ngClass]="show && isSuccess ? 'success-toaster' : ''">
-    <div class="success-toaster-circle">
-        <div></div>
-    </div>
-    <div class="success-toaster-message">
-        <span>Success</span>
-        <p>{{message}}</p>
-    </div>
+<div class="toaster-container">
+    <div class="toaster-list" *ngFor="let toaster of toasterList">
     
-</div>
-
-<!-- Danger toaster -->
-<div class="toaster" [ngClass]="show && !isSuccess ? 'error-toaster' : ''">
-    <div class="error-toaster-circle">
-        <div></div>
-    </div>
-    <div class="error-toaster-message">
-        <span>Error</span>
-        <p>{{message}}</p>
+        <!-- Success toaster -->
+        <div [ngClass]="toaster.show && toaster.isSuccess === 'Success' ? 'toaster success-toaster' : 'toaster error-toaster'">
+            <div [ngClass]="toaster.show && toaster.isSuccess === 'Success' ? 'success-toaster-circle' : 'error-toaster-circle'">
+                <div></div>
+            </div>
+            <div [ngClass]="toaster.show && toaster.isSuccess === 'Success' ? 'success-toaster-message' : 'error-toaster-message'">
+                <span>Success</span>
+                <p>{{toaster.message}}</p>
+            </div>
+        </div>
     </div>
 </div>

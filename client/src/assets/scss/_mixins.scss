@@ -13,7 +13,7 @@
     font-size: $size;
     font-weight: $weight;
     font-style: $style;
-    color: $color
+    color: $color !important;
 }
 
 // Brutalism input field
@@ -52,7 +52,6 @@
 
     width: $width;
     height: $height;
-    cursor: pointer;
     border: 1px solid $black;
     background: $bgColor;
 

@@ -2,89 +2,105 @@
 @import '../../../assets/scss/variables';
 
 // Main toaster css
+
+.toaster-container {
+
+    width: 100%;
+    height: max-content;
+    position: absolute;
+}
+
+.toaster-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
 .toaster {
 
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    position: absolute;
     width: 400px;
-    right: 0;
-    z-index: 1;
-    
+    z-index: 2;
+
     border: 1.5px solid $black;
     overflow: hidden;
+    cursor: $hand-cursor;
 
-    @include padding(1%,1%,1%,1%);
+    @include padding(1%, 1%, 1%, 1%);
+    @include margin(1.5%, 0%, 0%, 0%);
     box-shadow: 2px 2px 0px 0px $black;
 
-    transform: translate(400px,20px);
+    transform: translateX(400px);
 }
 
 // Success message toaster
 .success-toaster {
-    
+
     &-circle {
 
         width: 15%;
-        
+
         div {
             width: 50px;
             height: 50px;
 
             border-radius: 50px;
-            @include padding(2%,2%,2%,2%);
-            
+            @include padding(2%, 2%, 2%, 2%);
+
             border: 1px solid $black;
 
             // Image styling
-            background: url('../../../assets/images/thumbs-up.svg');
+            background: $thumbs-up;
             background-size: 20px;
             background-position: center;
             background-repeat: no-repeat;
             background-color: $success;
         }
     }
-    
+
     &-message {
-        
+
         width: 82%;
+        @include margin(0px, 0px, 0px, 6px);
 
         // Title
         span {
 
-            @include text-font(16px,600,normal,black);
-            @include margin(0px,0px,50px,0px);
+            @include text-font(16px, 600, normal, black);
+            @include margin(0px, 0px, 50px, 0px);
         }
 
         // Sub message
         p {
 
-            @include text-font(14px,400,normal,black);
+            @include text-font(14px, 400, normal, black);
             line-height: 2;
             word-break: break-all;
         }
     }
 
-    animation: toaster-from-right 6s ease-in;
+    animation: toaster 6s ease-in;
 }
 
 // Error message toaster
 .error-toaster {
 
     &-circle {
-        
+
+        // display: flex;
+        // align-items: center;
+
         div {
             width: 50px;
             height: 50px;
-
-            border-radius: 50px;
-            @include padding(2%,2%,2%,2%);
             
+            border-radius: 50px;
+            @include padding(2%, 2%, 2%, 2%);
             border: 1px solid $black;
 
             // Image styling
-            background: url('../../../assets/images/alert-triangle.svg');
+            background: $alert-triangle;
             background-size: 20px;
             background-position: center;
             background-repeat: no-repeat;
@@ -92,44 +108,47 @@
 
         }
     }
-    
+
     &-message {
-        
+
         width: 82%;
+        @include margin(0px, 0px, 0px, 10px);
 
         // Title
         span {
 
-            @include text-font(16px,600,normal,black);
-            @include margin(0px,0px,50px,0px);
+            @include text-font(16px, 600, normal, black);
+            @include margin(0px, 0px, 50px, 0px);
         }
 
         // Sub message
         p {
 
-            @include text-font(14px,400,normal,black);
+            @include text-font(14px, 400, normal, black);
             line-height: 2;
             word-break: break-all;
         }
     }
 
-    animation: toaster-from-right 6s ease-in;
+    animation: toaster 6s ease-in;
 }
 
-
 // Animation
-@keyframes toaster-from-right {
+@keyframes toaster {
 
     0% {
-        transform: translate(400px,20px);
-    } 5% {
-        transform: translate(-100px,20px);
+        transform: translateX(400px);
+    }
+
+    5% {
+        transform: translateX(-100px);
     }
 
     95% {
-        transform: translate(-100px,20px);
+        transform: translateX(-100px);
     }
+
     100% {
-        transform: translate(400px,20px);
+        transform: translateX(400px);
     }
 }
