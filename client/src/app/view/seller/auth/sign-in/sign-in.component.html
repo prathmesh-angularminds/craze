@@ -13,45 +13,59 @@
         <!-- Sign in form -->
         <div class="sign-in-form">
             <form [formGroup]="signInForm">
-                
+
                 <!-- Email -->
                 <div class="sign-in-form-email">
-                    <label>Email 
+                    <label>Email
                         <span *ngIf="this.showValidationMessage">
                             <span *ngIf="email.hasError('required')">Email is required</span>
                             <span *ngIf="email.hasError('email') && email.touched">Please enter valid email</span>
                         </span>
                     </label>
-                    <input type="email" formControlName="email" placeholder="Enter email" maxlength="35"/>
+                    <input type="email" formControlName="email" placeholder="Enter email" maxlength="35" />
                     <span class="input-bg"
-                        [ngStyle]="{'background-image': 'url(../../../../../assets/images/mail.svg)'}"></span>
+                        [ngStyle]="{'background-image': 'url(../../../../../assets/images/mail.svg)'}">
+                    </span>
                 </div>
 
                 <!-- Password -->
                 <div class="sign-in-form-password">
-                    <label>Password 
+                    <label>Password
                         <span *ngIf="this.showValidationMessage">
-                            <span *ngIf="password.hasError('required'); else passwordValidation">Password is required</span>
+                            <span *ngIf="password.hasError('required'); else passwordValidation">Password is
+                                required</span>
                             <ng-template #passwordValidation>
-                                <span *ngIf="password.errors?.['isPasswordInvalid'] && password.touched">Please enter valid password</span>
+                                <span *ngIf="password.errors?.['isPasswordInvalid'] && password.touched">Please enter
+                                    valid password</span>
                             </ng-template>
                         </span>
                     </label>
-                    <input [type]="passwordVisibility ? 'text' : 'password'" placeholder="Enter password" formControlName="password" maxlength="35"/>
-                    
+                    <input [type]="passwordVisibility ? 'text' : 'password'" placeholder="Enter password"
+                        formControlName="password" maxlength="35" />
+
                     <!-- Password eye image -->
                     <span class="input-bg"
                         [ngStyle]="{'background-image': 'url(../../../../../assets/images/' + imageUrl + ')'}"
                         (click)="onPasswordVisibilityChanged()"></span>
-                    
+
                     <!-- Password required message -->
-                    <p>Password must at least have 8 letter, with at least a symbol, upper and lower case letters and a number</p>
-                    
+                    <p>Password must at least have 8 letter, with at least a symbol, upper and lower case letters and a
+                        number</p>
+
                 </div>
                 <div class="sign-in-form-password-functions">
-                    <div class="forget-password" [routerLink]="'/seller/auth/forget-password'">
+                    <span class="forget-password" [routerLink]="'auth/forget-password'">
                         Forget password ?
-                    </div>
+                    </span>
+                </div>
+
+                <!-- Recaptcha -->
+                <div class="sign-in-form-captcha">
+                    <re-captcha (resolved)="$event && getReCaptchaToken($event)" [siteKey]="reCaptchaSiteKey"
+                    errorMode="handled"></re-captcha>
+                    <span *ngIf="this.showValidationMessage">
+                        <span *ngIf="reCaptcha.hasError('required')">Captcha is required</span>
+                    </span>
                 </div>
 
                 <!-- Sign in button -->
@@ -61,16 +75,11 @@
             </form>
         </div>
 
-        <!-- Line -->
-        <div class="sign-in-form-divider">
-            <div class="sign-in-left-line"></div>
-            or
-            <div class="sign-in-left-line"></div>
-        </div>
+
 
         <!-- Create account -->
         <p class="sign-in-go-to-sign-up">
-            You don’t have an account ?<span [routerLink]="'/seller/auth/sign-up'"> Create an account</span>
+            Want to create a new Organization ?<span> Contact our Team</span>
         </p>
     </div>
 </div>

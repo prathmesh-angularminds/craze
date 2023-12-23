@@ -1,0 +1,24 @@
+Organization Navigators:
+
+Navigators
+1] Dashboard
+2] Product
+    i] Mens
+    ii] Women
+    iii] Kids
+3] Orders
+4] Inbox
+
+
+Organization setting
+1] Organization Details [Image, name, email, address]
+2] Organization users 
+3] Preferences
+
+User seller profile at last 
+
+
+------------------------------------------------------------------
+
+II] For creating a organization they will need to do subscription
+III] On click save to clipboard functionality Eg: We see this functionality in npm library where we can copy the command just by clicking the command.
