@@ -13,8 +13,4 @@ export class ToasterServiceService {
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {
 
   }
-
-  show() {
-    let componentFactor = this.componentFactoryResolver.resolveComponentFactory(ToasterComponent);
-  }
 }

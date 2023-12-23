@@ -14,7 +14,6 @@ export class ToasterComponent implements OnInit {
   toasterList: Toaster[] = [];
   duration!: number;
   position!: number;
-  toaster: boolean = false;
 
   constructor(private toasterService: ToasterServiceService) { }
 
@@ -24,8 +23,8 @@ export class ToasterComponent implements OnInit {
 
       if (res) {
 
-        this.toasterList = [{ message: res.message, show: true, isSuccess: this.toaster ? 'Success' : 'Error' }, ...this.toasterList];
-        this.toaster = !this.toaster;
+        this.toasterList = [{ message: res.message, show: true, type: res.type }, ...this.toasterList];
+
         // After 6 second hide toaster
         setTimeout(() => {
           this.toasterList.pop();
@@ -39,7 +38,7 @@ export class ToasterComponent implements OnInit {
 // Toaster Interface
 interface Toaster {
   message: string;
-  isSuccess: string;
+  type: string;
   show: boolean;
 }
 

@@ -2,12 +2,12 @@
     <div class="toaster-list" *ngFor="let toaster of toasterList">
     
         <!-- Success toaster -->
-        <div [ngClass]="toaster.show && toaster.isSuccess === 'Success' ? 'toaster success-toaster' : 'toaster error-toaster'">
-            <div [ngClass]="toaster.show && toaster.isSuccess === 'Success' ? 'success-toaster-circle' : 'error-toaster-circle'">
+        <div [ngClass]="toaster.show && toaster.type === 'Success' ? 'toaster success-toaster' : 'toaster error-toaster'">
+            <div [ngClass]="toaster.show && toaster.type === 'Success' ? 'success-toaster-circle' : 'error-toaster-circle'">
                 <div></div>
             </div>
-            <div [ngClass]="toaster.show && toaster.isSuccess === 'Success' ? 'success-toaster-message' : 'error-toaster-message'">
-                <span>Success</span>
+            <div [ngClass]="toaster.show && toaster.type === 'Success' ? 'success-toaster-message' : 'error-toaster-message'">
+                <span>{{toaster.type}}</span>
                 <p>{{toaster.message}}</p>
             </div>
         </div>
