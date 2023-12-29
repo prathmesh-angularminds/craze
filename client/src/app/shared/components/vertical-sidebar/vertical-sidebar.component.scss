@@ -7,8 +7,14 @@
     height: 100%;
     background-color: $black;
 
+    @include flex-properties(flex,space-between,flex-start);
+    flex-direction: column;
     position: relative;
     @include padding(8%,8%,8%,8%);
+
+    div {
+        width: 100%;
+    }
 
     &-app-name {
 
@@ -29,7 +35,7 @@
     &-tab-block, &-dropdown {
         
         @include flex-properties(flex,flex-start,center);
-        @include text-font(16px,600,normal,$white);
+        @include text-font(16px,500,normal,$white);
         @include margin(2.5%,0%,2.5%,0%);
         @include padding(5.5%,3.5%,5.5%,3.5%);
         cursor: url('../../../../assets/images/hand-cursor.png'), auto;
@@ -37,7 +43,6 @@
 
     &-dropdown {
 
-        cursor: url('../../../../assets/images/hand-cursor.png'), auto;
         @include flex-properties(flex,space-between,center);
         span {
             @include flex-properties(flex,flex-start,center);
@@ -50,11 +55,12 @@
         background-color: $purple;
     }
 
-
     &-seller-profile-card {
 
-        color: white;
-        bottom: 1px;
-        border: 2px solid red;
+        @include flex-properties(flex,flex-start,center);
+        @include text-font(16px,500,normal,$white);
+        cursor: url('../../../../assets/images/hand-cursor.png'), auto;
+        position: relative;
+        bottom: 0px;
     }
 }
