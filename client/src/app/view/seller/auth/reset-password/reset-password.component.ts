@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 // Components, Interface and Services
-import { HttpService } from 'src/app/shared/http.service';
-import { ToasterServiceService } from 'src/app/shared/toaster/toaster-service/toaster-service.service';
+import { HttpService } from 'src/app/shared/services/http.service';
+import { ToasterServiceService } from 'src/app/shared/services/toaster-service.service';
 import { patternValidator } from 'src/app/shared/validators/pattern.validator';
 
 @Component({

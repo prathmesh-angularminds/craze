@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ToasterServiceService } from './toaster-service/toaster-service.service';
+import { ToasterServiceService } from '../../services/toaster-service.service';
 import { ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-toaster',
   templateUrl: './toaster.component.html',
   styleUrls: ['./toaster.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [CommonModule]
 })
 export class ToasterComponent implements OnInit {
 

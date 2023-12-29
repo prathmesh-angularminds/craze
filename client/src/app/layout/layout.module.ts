@@ -1,23 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
-import { HomeLayoutComponent } from './home-layout/home-layout.component';
+import { SellerAuthLayoutComponent } from './seller-layout/seller-auth-layout/seller-auth-layout.component';
+import { SellerHomeLayoutComponent } from './seller-layout/seller-home-layout/seller-home-layout.component';
 import { RouterOutlet } from '@angular/router';
+import { VerticalSidebarComponent } from '../shared/components/vertical-sidebar/vertical-sidebar.component';
 
 
 
 @NgModule({
   declarations: [
-    AuthLayoutComponent,
-    HomeLayoutComponent
+    SellerAuthLayoutComponent,
+    SellerHomeLayoutComponent
   ],
   imports: [
     CommonModule,
-    RouterOutlet
+    RouterOutlet,
+    // Standalone components
+    VerticalSidebarComponent
   ],
   exports: [
-    AuthLayoutComponent,
-    HomeLayoutComponent
+    SellerAuthLayoutComponent,
+    SellerHomeLayoutComponent
   ]
 })
 export class LayoutModule { }

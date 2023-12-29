@@ -1,16 +1,17 @@
 
 // Color variables
 $background-color: #F9F4F0;
+$white: #ffffff;
 $black: #000;
 $error: #FB413F;
 $purple: #A272EB;
 $success: #50FFAF;
-
+$grey: #808080;
 
 // Font size
 
 // Assets
 $hand-cursor: url('../images/hand-cursor.png'), auto;
 $text-cursor: url('../images/text-cursor.png'), auto;
-$alert-triangle: url('../images/alert-triangle.svg');
-$thumbs-up: url('../images/thumbs-up.svg');
+$alert-triangle: url('../images/toaster-images/alert-triangle.svg');
+$thumbs-up: url('../images/toaster-images/thumbs-up.svg');

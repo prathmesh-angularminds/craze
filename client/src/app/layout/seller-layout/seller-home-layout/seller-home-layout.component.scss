@@ -1,0 +1,24 @@
+@import '/src/assets/scss/mixins' ;
+@import '/src/assets/scss/variables';
+
+.seller-home-layout {
+
+    // width: 200vh;
+    height: 100%;
+
+    @include flex-properties(flex,center,center);
+
+    // Side bar
+    &-sidebar {
+
+        min-width: 385px;
+        height: 100%;
+    }
+
+    // Routing pages 
+    &-pages {
+
+        width: 80%;
+        height: 100%;
+    }
+}

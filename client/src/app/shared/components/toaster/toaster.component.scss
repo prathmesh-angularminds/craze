@@ -1,5 +1,5 @@
-@import '../../../assets/scss/mixins';
-@import '../../../assets/scss/variables';
+@import '/src/assets/scss/mixins';
+@import '/src/assets/scss/variables';
 
 // Main toaster css
 
@@ -28,7 +28,7 @@
     cursor: $hand-cursor;
 
     @include padding(1%, 1%, 1%, 1%);
-    @include margin(1.5%, 0%, 0%, 0%);
+    @include margin(1.5%, 0%, 1%, 0%);
     box-shadow: 2px 2px 0px 0px $black;
 
     transform: translateX(400px);
@@ -87,9 +87,6 @@
 .error-toaster {
 
     &-circle {
-
-        // display: flex;
-        // align-items: center;
 
         div {
             width: 50px;

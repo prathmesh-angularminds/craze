@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router'; // CLI imports router
-import { AuthLayoutComponent } from 'src/app/layout/auth-layout/auth-layout.component';
-import { HomeLayoutComponent } from 'src/app/layout/home-layout/home-layout.component';
+import { SellerAuthLayoutComponent } from 'src/app/layout/seller-layout/seller-auth-layout/seller-auth-layout.component';
+import { SellerHomeLayoutComponent } from 'src/app/layout/seller-layout/seller-home-layout/seller-home-layout.component';
 
 const routes: Routes = [
     {
@@ -11,7 +11,7 @@ const routes: Routes = [
     },
     {
         path: "auth",
-        component: AuthLayoutComponent,
+        component: SellerAuthLayoutComponent,
         children: [
             {
                 path: "",
@@ -21,7 +21,7 @@ const routes: Routes = [
     },
     {
         path: "app",
-        component: HomeLayoutComponent,
+        component: SellerHomeLayoutComponent,
     },
 ]
 

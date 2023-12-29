@@ -1,0 +1,85 @@
+@import '../../../../assets/scss/mixins';
+@import '../../../../assets/scss/variables';
+
+// Overlapping images
+.floating-triangle1, .floating-triangle2, .wave-line {
+
+    width: 16%;
+    height: 500px;
+    position: absolute;
+    z-index: 2;
+}
+
+.floating-triangle1 {
+    left: 45px;
+}
+
+.floating-triangle2 {
+    top: -160px;
+    right: 20px;
+}
+
+.wave-line {
+
+    width: 38%;
+    height: 70%;
+    bottom: -50px;
+    right: 0px;
+}
+
+.subscription-plan-card {
+
+    width: 70%;
+
+    @include flex-properties(flex, space-evenly, center);
+    flex-direction: column;
+    position: relative;
+
+    background-color: $white;
+    border: 2px solid black;
+    @include padding(15%, 2%, 8%, 2%);
+
+    background: url('../../../../assets/images/subscription-card-amount-bg.svg');
+    background-repeat: no-repeat;
+    background-position: center -10px;
+    background-color: white;
+
+    &-amount {
+
+        @include text-font(70px, 800, normal, $black);
+
+        span {
+
+            @include text-font(40px, 600, normal, $black);
+        }
+    }
+
+    &-content-provided-in-plan {
+
+        width: 70%;
+        height: 250px;
+        text-align: start;
+        @include flex-properties(flex, flex-start, flex-start);
+        flex-direction: column;
+        @include margin(17%, 0%, 3%, 0%);
+
+        .content {
+            @include flex-properties(flex, center, flex-start);
+            @include margin(2.5%, 0%, 2.5%, 0%);
+        }
+    }
+
+    // Buy button
+    button {
+
+        @include brutalism-button(40%, 50px, $purple);
+        @include text-font(16px, bold, normal, $black);
+        box-shadow: 2px 2px 0px 0px $black;
+        cursor: $hand-cursor;
+    }
+}
+
+.subscription-plan-card:hover {
+
+    box-shadow: 4px 4px 0px 0px $black;
+}

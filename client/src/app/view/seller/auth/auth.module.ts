@@ -6,20 +6,22 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 import { AuthRoutingModule } from './auth-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { RECAPTCHA_V3_SITE_KEY, RecaptchaFormsModule, RecaptchaModule, RecaptchaV3Module } from 'ng-recaptcha';
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
 
 // Environment file
 import { environment } from 'src/environments/environment';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     SignInComponent,
     SignUpComponent,
     ForgetPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
   ],
   imports: [
     CommonModule,
+    RouterModule,
     AuthRoutingModule,
     ReactiveFormsModule,
     RecaptchaFormsModule,

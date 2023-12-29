@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpService } from 'src/app/shared/http.service';
-import { ToasterServiceService } from 'src/app/shared/toaster/toaster-service/toaster-service.service';
+import { HttpService } from 'src/app/shared/services/http.service';
+import { ToasterServiceService } from 'src/app/shared/services/toaster-service.service';
 
 @Component({
   selector: 'app-forget-password',

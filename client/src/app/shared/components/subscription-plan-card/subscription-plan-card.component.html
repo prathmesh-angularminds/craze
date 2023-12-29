@@ -1,0 +1,18 @@
+<img class="floating-triangle1" src="../../../../assets/images/subscription-card-images/triangle-with-line.svg"/>
+<img class="floating-triangle2" src="../../../../assets/images/subscription-card-images/triangle-with-line.svg"/>
+<img class="wave-line" src="../../../../assets/images/subscription-card-images/wave-line.svg"/>
+
+<div class="subscription-plan-card">
+    <div class="subscription-plan-card-amount">
+        {{subscriptionPlanAmount}}<span>₹</span>
+    </div>
+    <div class="subscription-plan-card-content-provided-in-plan">
+        <div class="content" *ngFor="let content of contentProvidedInPlan">
+            <img src="../../../../assets/images/subscription-card-images/star-check-icon.svg" />&nbsp; &nbsp;
+            <span>{{content}}</span>
+        </div>
+    </div>
+    <button>Buy</button>
+</div>
+
+<!-- *ngFor="let content in contentProvidedInPlan" -->

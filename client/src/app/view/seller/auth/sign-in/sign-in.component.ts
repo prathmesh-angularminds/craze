@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpService } from 'src/app/shared/http.service';
+import { HttpService } from 'src/app/shared/services/http.service';
 
 // Components, Interface and Services
 import { patternValidator } from 'src/app/shared/validators/pattern.validator';
-import { ToasterServiceService } from 'src/app/shared/toaster/toaster-service/toaster-service.service';
+import { ToasterServiceService } from 'src/app/shared/services/toaster-service.service';
 import { SignIn } from 'src/app/shared/interface/signIn.interface';
 
 // Environment File data

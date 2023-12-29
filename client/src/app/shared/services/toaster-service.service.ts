@@ -1,6 +1,6 @@
 import { ComponentFactory, ComponentFactoryResolver, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ToasterComponent } from '../toaster.component';
+import { ToasterComponent } from '../components/toaster/toaster.component';
 
 @Injectable({
   providedIn: 'root'
