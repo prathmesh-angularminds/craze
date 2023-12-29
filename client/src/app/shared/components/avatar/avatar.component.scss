@@ -1,0 +1,28 @@
+@import '/src/assets/scss/mixins';
+@import '/src/assets/scss/variables';
+
+.avatar {
+
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+
+    &-initial-letters, &-profile-image {
+
+        width: 100%;
+        height: 100%;
+    }
+
+    &-initial-letters {
+
+        background-color: $purple;
+        @include flex-properties(flex,center,center);
+        @include text-font(20px,600,normal,$white);
+    }
+
+    &-profile-image {
+
+        object-fit:cover;
+        border-radius: 50%;
+    }
+}

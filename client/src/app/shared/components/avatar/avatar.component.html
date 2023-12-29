@@ -1,0 +1,6 @@
+<div class="avatar">
+    <div class="avatar-initial-letters" *ngIf="!hasProfileImage; else imageEle">{{initialLetters}}</div>
+    <ng-template #imageEle>
+        <img class="avatar-profile-image" [src]="displayData" />
+    </ng-template>
+</div>
