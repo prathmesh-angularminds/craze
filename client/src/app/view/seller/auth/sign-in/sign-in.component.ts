@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/shared/services/http.service';
@@ -17,6 +17,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit, OnDestroy {
+
+  @ViewChild('captchaEle') captchaEle: any;
 
   // Instance variables
   showValidationMessage: boolean = false;
@@ -54,7 +56,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.signInForm = this.fb.group({
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required, patternValidator(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/)]],
-      reCaptcha: ["",Validators.required]
+      reCaptcha: ["", Validators.required]
     })
   }
 
@@ -88,10 +90,13 @@ export class SignInComponent implements OnInit, OnDestroy {
   // Sign in function
   submitLoginForm() {
 
-      let signInPayload: SignIn = this.signInForm.value;
+    this.router.navigateByUrl('/seller/app')
 
-      // // If form is invalid show validation messages
-      if(this.signInForm.invalid) {
+
+    let signInPayload: SignIn = this.signInForm.value;
+
+    // // // If form is invalid show validation messages
+    if (this.signInForm.invalid) {
       this.showValidationMessage = true;
       return;
     }
@@ -100,21 +105,29 @@ export class SignInComponent implements OnInit, OnDestroy {
     // const url: string = "auth/seller/sign-in?captcha=false"
     const url: string = "auth/seller/sign-in"
 
-    this.httpService.post(url,signInPayload).subscribe({
-      next: () => {
+    this.httpService.post(url, signInPayload).subscribe({
+      next: (res: any) => {
         this.toasterService.showToaster.next({
           message: "Seller login in successfully",
           type: "Success"
         })
 
-        // this.router.navigateByUrl([''])
+        // Reset form and captcha 
+        this.captchaEle.reset();
+        this.signInForm.reset();
+
+        this.router.navigate(['/seller/app']);
       },
       error: (err: any) => {
 
         this.toasterService.showToaster.next({
-          message: err.error.message,
+          message: err.error.message || err.message,
           type: "Error"
         })
+
+        // Reset form and captcha 
+        this.captchaEle.reset();
+        this.signInForm.reset();
       }
     })
   }

@@ -61,8 +61,8 @@
 
                 <!-- Recaptcha -->
                 <div class="sign-in-form-captcha">
-                    <re-captcha (resolved)="$event && getReCaptchaToken($event)" [siteKey]="reCaptchaSiteKey"
-                    errorMode="handled"></re-captcha>
+                    <re-captcha #captchaEle (resolved)="$event && getReCaptchaToken($event)" [siteKey]="reCaptchaSiteKey"
+                    errorMode="handled" ></re-captcha>
                     <span *ngIf="this.showValidationMessage">
                         <span *ngIf="reCaptcha.hasError('required')">Captcha is required</span>
                     </span>

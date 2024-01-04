@@ -11,7 +11,8 @@ export class HttpService {
 
   post(url: string,payload: any) {
 
-    return this.http.post((environment.URL + url),payload);
+    // If we want to set cookies in browser which we received from server then pass withCredentials : true
+    return this.http.post((environment.URL + url),payload,{withCredentials: true});
   }
 
   get(url: string) {
