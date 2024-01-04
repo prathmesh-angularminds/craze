@@ -64,10 +64,10 @@ const productSchema = new mongoose.Schema({
         ref: 'User'
     },
     productType: {
-        type: String,
-        trim: true,
-        enum: productType,
-        required: true
+            type: String,
+            trim: true,
+            enum: productType,
+            required: true
     },
     productSubType: {
         type: String,

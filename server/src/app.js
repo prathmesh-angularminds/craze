@@ -16,7 +16,8 @@ const morgan = require('./config/morgen');
 app.use(morgan.successHandler)
 app.use(morgan.errorHandler)
 
-app.use(cors({ origin: '*' }));
+// For setting cookies at browser set credentials to true
+app.use(cors({ origin: ['http://localhost:4200'],credentials: true}));
 app.use(bodyParser.json())
 
 // Initialize passport for authentication

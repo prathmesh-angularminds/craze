@@ -1,12 +1,19 @@
 const mongoose = require('mongoose');
 
+const sellerRole = ['Admin','Order-Manager','Product-Manager']
+
 const sellerSchema = new mongoose.Schema({
     _org: {
         type: mongoose.Types.ObjectId,
         ref: 'Organization',
         required: true,
     },
-    name: {
+    firstName: {
+        type: String,
+        trim: true,
+        required: true
+    },
+    lastName: {
         type: String,
         trim: true,
         required: true
@@ -21,6 +28,12 @@ const sellerSchema = new mongoose.Schema({
         type: String,
         trim: true,
         required: true
+    },
+    sellerRole: {
+        type: String,
+        trim: true,
+        required: true,
+        enum: sellerRole
     },
     isActive: {
         type: Boolean,

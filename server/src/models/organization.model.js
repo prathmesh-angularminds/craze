@@ -16,6 +16,9 @@ const organizationSchema = new mongoose.Schema({
         trim: true,
         required: true
     },
+    orgUserCount: {                                 // Represents number of users in org
+        type: Number,
+    },
     address: {
         street1: {
             type: String,

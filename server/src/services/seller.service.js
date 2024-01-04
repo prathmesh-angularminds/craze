@@ -79,11 +79,6 @@ const getSellerById = async (sellerId) => {
 
     const seller = Seller.findById(sellerId);
 
-    // If seller is not available throw error
-    if (!seller) {
-        throw new ApiError(httpStatus.NOT_FOUND, "Seller not found");
-    }
-
     return seller;
 }
 
@@ -91,11 +86,8 @@ const getSellerById = async (sellerId) => {
 const updateSellerById = async (sellerId, payload) => {
 
     const seller = await getSellerById(sellerId);
-    console.log(seller, payload);
     Object.assign(seller, payload)
-    console.log(seller);
     await seller.save();
-
 }
 
 /**
@@ -106,10 +98,6 @@ const updateSellerById = async (sellerId, payload) => {
 const getSellerByEmailId = async (email) => {
 
     const seller = await Seller.findOne({ email });
-
-    if (!seller) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'Seller not found')
-    }
 
     return seller;
 }

@@ -17,14 +17,14 @@ const catchAsync = require('./../utils/catchAsync');
 // Sign Up [Register]
 const signUpSeller = catchAsync(async(req,res) => {
 
-    let org = organizationService.getOrganizationById(newSeller._org);
+    let org = organizationService.getOrganizationById(req.body._org);
 
     // If organization does not exist throw an error
     if(!org) {
         throw new ApiError(httpStatus.BAD_REQUEST,"Organization does not exist");
     }  
 
-    let seller = await sellerService.getSellerByEmailId(newSeller.email);
+    let seller = await sellerService.getSellerByEmailId(req.body.email);
 
     // If email is already exist throw an error
     if(seller) {
@@ -46,15 +46,11 @@ const signUpSeller = catchAsync(async(req,res) => {
 // Sign In [Login]
 const signInSeller = catchAsync(async(req,res) => { 
 
-    let seller;
+    let seller = await sellerService.getSellerByEmailId(req.body.email);
 
-    // If seller not found catch the error thrown from getSellerByEmailId and throw a new error with new message
-    try {
-
-        seller = await sellerService.getSellerByEmailId(req.body.email);
-    } catch(err) {
-
-        // If email is not available throw an error
+    // If we get seller as null then throw an error.
+    // If email is not available throw an error
+    if(!seller) {
         throw new ApiError(httpStatus.NOT_FOUND, "Invalid email or password");
     }
 
@@ -67,8 +63,10 @@ const signInSeller = catchAsync(async(req,res) => {
         id: seller._id,
         type: 'Seller'
     }, tokenType.USER_REGISTRATION);
-
-    res.send({token: token}).status(httpStatus.OK)
+    
+    // Setting jwt token in cookies
+    res.cookie("access_token",token);
+    res.send(null).status(httpStatus.OK)
 })
 
 // Forget password
@@ -125,6 +123,12 @@ const getAllSellers = catchAsync(async(req,res,next) => {
 const getSellerById = catchAsync(async(req,res,next) => {
 
     let seller = await sellerService.getSellerById(req.params.sellerId);
+
+    // If seller is not available throw error
+    if (!seller) {
+        throw new ApiError(httpStatus.NOT_FOUND, "Seller not found");
+    }
+    
     res.send({result: seller}).status(httpStatus.OK)
 })
 
