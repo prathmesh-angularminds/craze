@@ -12,8 +12,6 @@ const { emailService, sellerService, organizationService, tokenService } = requi
 const ApiError = require('./../utils/apiError');
 const catchAsync = require('./../utils/catchAsync');
 
-
-
 // Sign Up [Register]
 const signUpSeller = catchAsync(async(req,res) => {
 
@@ -62,7 +60,7 @@ const signInSeller = catchAsync(async(req,res) => {
     let token = tokenService.generateAuthToken({
         id: seller._id,
         type: 'Seller'
-    }, tokenType.USER_REGISTRATION);
+    });
     
     // Setting jwt token in cookies
     res.cookie("access_token",token);

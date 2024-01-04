@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WildCardComponent } from './view/wild-card/wild-card.component';
 import { SharedModule } from './shared/shared.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpInterceptor } from './shared/interceptor/http.interceptor';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,13 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

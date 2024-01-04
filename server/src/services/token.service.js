@@ -16,11 +16,10 @@ const generateToken = (payload,secretKey,expiresIn) => {
  * @param {Mongoose id} id 
  * @returns jwt token
  */
-const generateAuthToken = (payload,authTokenKey) => {
+const generateAuthToken = (payload) => {
 
     const expiresIn = '1d';
-    const secretKey = process.env.JWT_SECRET + authTokenKey
-    const token = generateToken(payload,secretKey,expiresIn);
+    const token = generateToken(payload,process.env.JWT_SECRET,expiresIn);
     return token
 }
 
