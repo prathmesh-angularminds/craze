@@ -14,6 +14,16 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'organization-settings/details',
+    component: OrganizationDetailsComponent,
+    canActivate: [CanAccessOrganizationSettingsGuard]
+  },
+  {
+    path: 'organization-settings/users',
+    component: OrganizationUsersComponent,
+    canActivate: [CanAccessOrganizationSettingsGuard]
+  },
+  {
     path: 'products',
     component: ProductsComponent
   },
@@ -25,16 +35,6 @@ const routes: Routes = [
     path: 'orders',
     component: OrdersComponent
   },
-  {
-    path: 'organization-settings/details',
-    component: OrganizationDetailsComponent,
-    canActivate: [CanAccessOrganizationSettingsGuard]
-  },
-  {
-    path: 'organization-settings/',
-    component: OrganizationUsersComponent,
-    canActivate: [CanAccessOrganizationSettingsGuard]
-  }
 ];
 
 @NgModule({

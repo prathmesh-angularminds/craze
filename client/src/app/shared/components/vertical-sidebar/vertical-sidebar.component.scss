@@ -49,6 +49,11 @@
         }
     }
 
+    &-tab-name {
+
+        cursor: url('../../../../assets/images/hand-cursor.png'), auto;
+    }
+
     &-tab-block:hover, &-dropdown:hover  {
 
         border-radius: 5px;

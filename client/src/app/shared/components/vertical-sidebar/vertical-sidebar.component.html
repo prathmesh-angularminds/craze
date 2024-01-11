@@ -4,8 +4,17 @@
         <div class="vertical-sidebar-block" *ngFor="let block of sidebarContents">
             <div class="vertical-sidebar-block-title">{{block.title}}</div>
             <div class="vertical-sidebar-block-content" *ngFor="let tabContent of block.content">
-                <div class="vertical-sidebar-tab-block" *ngIf="!tabContent.isDropdown">
-                    <img [src]="tabContent.imageUrl"/> &nbsp; &nbsp; &nbsp;
+                <div class="vertical-sidebar-tab-block" *ngIf="!tabContent.isDropdown"  [routerLink]="tabContent.routerLink">
+                    <img [src]="tabContent.imageUrl" /> &nbsp; &nbsp; &nbsp;
+                    <span class="vertical-sidebar-tab-name">{{tabContent.title}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="vertical-sidebar-block" *ngIf="seller?.sellerRole === 'Admin'">
+            <div class="vertical-sidebar-block-title">{{organizationMenu.title}}</div>
+            <div class="vertical-sidebar-block-content" *ngFor="let tabContent of organizationMenu.content">
+                <div class="vertical-sidebar-tab-block" [routerLink]="tabContent.routerLink">
+                    <img [src]="tabContent.imageUrl" /> &nbsp; &nbsp; &nbsp;
                     <span class="vertical-sidebar-tab-name">{{tabContent.title}}</span>
                 </div>
             </div>
@@ -13,6 +22,6 @@
     </div>
     <div class="vertical-sidebar-seller-profile-card">
         <app-avatar [hasProfileImage]="false" [displayData]="'Prathamesh Vibhute'"></app-avatar> &nbsp; &nbsp; &nbsp;
-        <span>Prathamesh Vibhute</span>
+        <span>{{seller?.firstName}} {{seller?.lastName}}</span>
     </div>
 </div>

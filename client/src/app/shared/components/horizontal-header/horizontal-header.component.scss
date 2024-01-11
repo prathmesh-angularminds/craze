@@ -1,0 +1,10 @@
+@import '/src/assets/scss/mixins';
+@import '/src/assets/scss/variables';
+
+.horizontal-header {
+
+    height: 100%;
+    @include text-font(24px,600,normal,$black);
+    @include flex-properties(flex,flex-start,center);
+    @include padding(0%,2.5%,0%,2.5%);
+}

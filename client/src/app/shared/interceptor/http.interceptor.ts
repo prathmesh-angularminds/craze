@@ -24,14 +24,14 @@ export class HttpInterceptor implements HttpInterceptor {
           Authorization: `Bearer ${accessToken}`
         }
       })
-
     }
-    console.log("Request: ", request);
+
     return next.handle(request).pipe(catchError((err: any) => {
 
       if(err instanceof HttpErrorResponse) {
         if(err.status === 401) {
 
+          this.cookieService.removeCookie('access_token');
           this.router.navigate(['/seller/auth']);
         }
       }
