@@ -18,14 +18,7 @@ const createOrganization = async (organization) => {
  */
 const getOrganizationById = async (orgId) => {
 
-    let org = await Organization.findById(orgId);
-
-    // If organization does not exist
-    if(!org) {
-        throw new ApiError(httpStatus.NOT_FOUND,"Organization not found !!")
-    }
-
-    return org;
+    return await Organization.findById(orgId);
 }
 
 module.exports = {

@@ -77,7 +77,7 @@ const getAllSellers = async () => {
  */
 const getSellerById = async (sellerId) => {
 
-    const seller = Seller.findById(sellerId);
+    const seller = Seller.findById(sellerId).populate();
 
     return seller;
 }
@@ -110,6 +110,19 @@ const deleteSellerById = async (sellerId) => {
     return seller;
 }
 
+/**
+ * 
+ * @param { mongoose id } orgId
+ * @returns Seller List promise
+ *  
+ */
+const getOrganizationUsers = async (orgId) => {
+
+    console.log("OrgId :",orgId);
+
+    return await Seller.find({_org: orgId}) ;
+}
+
 module.exports = {
     createSeller,
     verifyResetPassword,
@@ -117,7 +130,8 @@ module.exports = {
     getAllSellers,
     getSellerById,
     getSellerByEmailId,
-    deleteSellerById
+    deleteSellerById,
+    getOrganizationUsers
 }
 
 // org: 65000b239f56f1c568307831

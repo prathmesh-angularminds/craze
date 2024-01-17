@@ -1,8 +1,10 @@
 const ApiError = require('./../utils/apiError');
-const { Organization } = require('./../models/index');
+const { Organization, Seller } = require('./../models/index');
 const catchAsync = require('./../utils/catchAsync');
 const httpStatus = require('http-status');
 const { organizationService } = require('./../services/index');
+
+const { sellerService } = require('../services/index');
 
 // create organization
 const createOrganization = catchAsync(async(req,res,next) => {
@@ -40,7 +42,24 @@ const getOrganizationById = catchAsync(async (req,res,next) => {
     return res.send({result: organization}).status(httpStatus.OK)
 })
 
+// Get organization users
+const getOrganizationUsers = catchAsync(async (req,res) => {
+
+    const organization = await organizationService.getOrganizationById(req.params.orgId);
+
+    // If organization is not present
+    if(!organization) {
+        throw new ApiError(httpStatus.NOT_FOUND,"Organization not found");
+    }
+
+    let users = await sellerService.getOrganizationUsers(req.params.orgId);
+    console.log("Users: ",users);
+
+    return res.send({result: users}).status(httpStatus.OK)
+})
+
 module.exports = {
     createOrganization,
-    getOrganizationById
+    getOrganizationById,
+    getOrganizationUsers
 }
