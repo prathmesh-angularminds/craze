@@ -1,0 +1,18 @@
+<div class="drop-down" style="display: flex;justify-content: center;align-items: center;">
+    <div>
+        <button class="drop-down-button" (click)="onButtonClicked()" role="button">
+            <span *ngIf="label">{{label}} &nbsp;</span> 
+        </button>
+        <!--  -->
+        <div [ngClass]="showDropDownContainer ? 'drop-down-show-menu ' + position: 'drop-down-hide-menu'">
+            <div >
+                <div [routerLink]="'/seller/app/organization-settings/users'" class="drop-down-menu-content" (click)="showDropDownContainer = false">
+                    Archive
+                </div>
+                <div class="drop-down-menu-content" (click)="showDropDownContainer = false">
+                    Activate
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

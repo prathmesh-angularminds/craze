@@ -1,0 +1,68 @@
+@import '/src/assets/scss/mixins';
+@import '/src/assets/scss/variables';
+
+
+.drop-down {
+
+    &-button {
+        @include flex-properties(flex,center,center);
+        background-color: transparent;
+        border: none;
+        outline: none;
+    }
+
+    &-button::after {
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        content: url('../../../../assets/images/3-dots.svg');
+    }
+
+    &-hide-menu { 
+        display: none;
+    }
+
+    &-show-menu {
+        display: block;
+        position: absolute;
+        height: auto;
+        width: 200px;
+        border: 2px solid $black;
+        margin-top: 5px;
+        background-color: $white;
+        box-shadow: 2px 2px 0px 0px $black;
+    }
+    
+    // Dropdown position
+    .top {
+        transform: translate(-60px,-130px);
+    }
+    
+    .bottom {
+        transform: translate(-60px,0px);
+    }
+
+    .left {
+        transform: translate(-205px,-70px);
+    }
+
+    .right {
+        transform: translate(40px,-70px);
+    }
+
+    &-menu-content {
+
+        width: 100%;
+        @include text-font(16px,500,normal,$black);
+        @include padding(6%,2%,6%,2%);
+        cursor: $hand-cursor;
+    }
+
+    &-menu-content:hover {
+        
+        @include text-font(16px,500,normal,$white);
+        background-color: $purple;
+        // border: 1px solid $black;
+    }
+}
