@@ -1,0 +1,53 @@
+@import '../../../../assets/scss/variables';
+@import '../../../../assets/scss/mixins';
+
+.brutalism-badge {
+
+    width: 100%;
+    @include flex-properties(flex,center,center);
+
+    .badge {
+        @include flex-properties(flex, center, center);
+        @include padding(4%,20px,4%,20px);
+    }
+
+    // Black
+    .black-filled {
+        @include text-font(15px, 500, normal, $white);
+        background-color: $black;
+    }
+
+    .black-bordered {
+        @include text-font(15px, 500, normal, $white);
+        border: 2px solid $black;
+    }
+
+    // Success
+    .success-filled {
+        @include text-font(15px, 500, normal, $white);
+        background-color: $success;
+    }
+
+    .success-bordered {
+        @include text-font(15px, 500, normal, $success);
+        border: 2px solid $success;
+    }
+
+    // Danger
+    .danger-filled {
+        @include text-font(15px, 500, normal, $white);
+        background-color: $error;
+    }
+
+    .danger-bordered {
+        @include text-font(15px, 500, normal, $error);
+        border: 2px solid $error;
+    }
+    
+    .organization-user-status-block {
+
+        height: 40px;
+        width: 130px;
+        background-color: $black;
+    }
+}
