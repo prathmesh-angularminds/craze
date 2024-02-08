@@ -16,35 +16,34 @@
     color: $color !important;
 }
 
+@mixin text-styling($font-family,$size, $weight,$style,$color) {
+
+    font-family: $font-family;
+    line-height: 1.2;
+    font-size: $size;
+    font-weight: $weight;
+    font-style: $style;
+    color: $color !important;
+}
+
 // Brutalism input field
 @mixin input-text-field($width,$height,$borderColor) {
 
     width: $width;
     height: $height;
-    border: 1px solid $borderColor;
+    border: 2px solid $borderColor;
     outline: none;
-    background-color: transparent;
+    background-color: transparent !important;
     
-    font-weight: 700;
     padding-left: 5%;
     margin: 10px 0px 5px 0px;
     box-sizing: border-box;
-
-
-}
-
-@mixin input-bg-image($imageUrl) {
-
-    background-position: 500px center;
-    background-size: 3%;
-    background-image: url($imageUrl);
-    background-repeat: no-repeat;
 }
 
 // Form validation error 
 @mixin form-validation-message {
 
-    @include text-font(14px, 400, normal, $error);  
+    @include text-styling('Whyte',14px, 400, normal, $error);  
 }
 
 // Brutalism button
@@ -52,7 +51,7 @@
 
     width: $width;
     height: $height;
-    border: 1px solid $black;
+    border: 2px solid $black;
     background: $bgColor;
 
 }

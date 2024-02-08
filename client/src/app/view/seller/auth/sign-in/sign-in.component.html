@@ -2,13 +2,13 @@
     <div class="sign-in-form-container">
 
         <!-- Title -->
-        <div class="sign-in-title">CRAZE</div>
-        <div class="sign-in-form-title">
+        <div class="sign-in-title">{{'Craze' | uppercase}}</div>
+        <p class="sign-in-form-title">
             Sign in
-        </div>
-        <div class="sign-in-form-sub-title">
+        </p>
+        <p class="sign-in-form-sub-title" style="font: inherit;font-size: 14px; font-family: Whyte;z-index:auto;line-height: 1.2;">
             Enter your account details to sign-in
-        </div>
+        </p>
 
         <!-- Sign in form -->
         <div class="sign-in-form">
@@ -23,9 +23,6 @@
                         </span>
                     </label>
                     <input type="email" formControlName="email" placeholder="Enter email" maxlength="35" />
-                    <span class="input-bg"
-                        [ngStyle]="{'background-image': 'url(../../../../../assets/images/mail.svg)'}">
-                    </span>
                 </div>
 
                 <!-- Password -->
@@ -43,14 +40,9 @@
                     <input [type]="passwordVisibility ? 'text' : 'password'" placeholder="Enter password"
                         formControlName="password" maxlength="35" />
 
-                    <!-- Password eye image -->
-                    <span class="input-bg"
-                        [ngStyle]="{'background-image': 'url(../../../../../assets/images/' + imageUrl + ')'}"
-                        (click)="onPasswordVisibilityChanged()"></span>
-
                     <!-- Password required message -->
                     <p>Password must at least have 8 letter, with at least a symbol, upper and lower case letters and a
-                        number</p>
+                        number.</p>
 
                 </div>
                 <div class="sign-in-form-password-functions">

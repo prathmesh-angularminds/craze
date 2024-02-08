@@ -4,6 +4,7 @@
 
     width: 100%;
     height: 100%;
+    line-height: 1;
 
     &-form-container {
 
@@ -19,29 +20,32 @@
     }
 
     &-title {
-        
+
         top: 0px;
-        @include text-font(20px, 900, normal, $black);
+        @include text-styling('Whyte', 20px, 900, normal, $black);
     }
 
     &-form-title {
 
-        @include text-font(50px, 900, normal, $black);
         @include margin(5%, 0px, 0px, 0px);
+        @include text-styling('Whyte', 40px, 800, normal, $black);
+        z-index: auto;
     }
 
     &-form-sub-title {
 
-        @include text-font(14px, 400, normal, #7C7C7C);
-
-        margin-top: 6px;
+        @include text-styling('Whyte', 14px, normal, normal, #7C7C7C);
+        padding-top: 8px;
         box-sizing: border-box;
+        float: none;
+        line-height: 12px;
+        position: static
     }
 
     &-form {
 
         width: 80%;
-        margin: 25px 0px 0px 0px;
+        margin: 20px 0px 0px 0px;
         box-sizing: border-box;
 
         &-email,
@@ -54,6 +58,7 @@
 
             label {
                 width: 100%;
+                @include text-styling('Whyte', 16px, 800, normal, $black);
                 display: flex;
                 justify-content: space-between;
                 font-weight: bold;
@@ -61,65 +66,44 @@
 
             input {
 
-                @include input-text-field(100%, 60px, $black); 
-            }
-    
-            .input-bg {
-
-                width: 50px;
-                height: 60px;
-
-                position: absolute;
-                top: 30px;
-                left: 91%;
-                
-                cursor: $hand-cursor;
-
-                background-size: 18px;
-                background-position: center;
-                background-repeat: no-repeat;
-                background-color: '#FAF5F2';
-                
+                @include text-styling('Whyte', 14px, 700, normal, $black);
+                @include input-text-field(100%, 60px, $black);
+                vertical-align: middle;
             }
 
-            &-password {
-
-                .input-bg {
-                    cursor: pointer
-                }
+            ::placeholder {
+                @include text-styling('Whyte', 14px, 500, normal, $black);
             }
 
             span {
                 @include form-validation-message;
             }
 
-
             p {
 
                 box-sizing: border-box;
                 margin-top: 2px;
-                @include margin(5px,0%,0%,0%);
-                @include text-font(12px, 300, normal, #7C7C7C)
+                @include margin(20px, 0%, 0%, 0%);
+                @include text-styling('Whyte Book', 14px, 500, normal, #7C7C7C);
             }
 
             box-sizing: border-box;
-            @include margin(3.5%,0%,0%,0%);
+            @include margin(3.5%, 0%, 0%, 0%);
         }
 
         &-captcha {
 
-            display: flex; 
+            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
 
             span {
                 @include form-validation-message;
-                @include margin(1%,0%,0%,0%)
-
+                @include margin(1%, 0%, 0%, 0%)
             }
 
-            @include margin(2%,0%,5%,0%)
+            @include margin(2%, 0%, 5%, 0%)
         }
 
         &-password-functions {
@@ -127,11 +111,11 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
+
             .forget-password {
-                cursor: $hand-cursor
+                cursor: $hand-cursor;
+                @include text-styling('Whyte', 14px, 800, normal, $black);
             }
-    
-            @include text-font(14px,500,normal,$black);
 
             box-sizing: border-box;
             margin: 2% 0% 3.5% 0%;
@@ -141,10 +125,10 @@
         &-button {
 
             width: 100%;
-            
+
             button {
                 @include brutalism-button(100%, 60px, $purple);
-                @include text-font(16px, bold, normal, $black);
+                @include text-styling('Whyte',16px, 800, normal, $black);
                 box-shadow: 2px 2px 0px 0px $black;
                 cursor: $hand-cursor;
             }
@@ -154,8 +138,8 @@
     &-go-to-sign-up {
 
 
-        @include margin(5%,0%,0%,0%);
-        @include text-font(14px, 600, normal, #7C7C7C);
+        @include margin(5%, 0%, 0%, 0%);
+        @include text-styling('Whyte', 14px, 800, normal, #7C7C7C);
 
         span {
             color: $black;

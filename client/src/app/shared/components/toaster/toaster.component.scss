@@ -23,13 +23,14 @@
     width: 400px;
     z-index: 2;
 
-    border: 1.5px solid $black;
+    border: 2px solid $black;
     overflow: hidden;
     cursor: $hand-cursor;
 
     @include padding(1%, 1%, 1%, 1%);
     @include margin(1.5%, 0%, 1%, 0%);
-    box-shadow: 2px 2px 0px 0px $black;
+    box-shadow: 4px 4px 0px 0px $black;
+    background-color: $white;
 
     transform: translateX(400px);
 }
@@ -67,14 +68,14 @@
         // Title
         span {
 
-            @include text-font(16px, 600, normal, black);
+            @include text-styling('Whyte',16px, 600, normal, black);
             @include margin(0px, 0px, 50px, 0px);
         }
 
         // Sub message
         p {
 
-            @include text-font(14px, 400, normal, black);
+            @include text-styling('Whyte',14px, 400, normal, black);
             line-height: 2;
             word-break: break-all;
         }
@@ -114,14 +115,14 @@
         // Title
         span {
 
-            @include text-font(16px, 600, normal, black);
+            @include text-styling('Whyte',16px, 600, normal, black);
             @include margin(0px, 0px, 50px, 0px);
         }
 
         // Sub message
         p {
 
-            @include text-font(14px, 400, normal, black);
+            @include text-styling('Whyte',14px, 400, normal, black);
             line-height: 2;
             word-break: break-all;
         }
