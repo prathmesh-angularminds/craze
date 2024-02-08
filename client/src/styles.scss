@@ -7,6 +7,9 @@
     overflow: hidden;
     cursor: url('./assets/images/normal-cursor.png'),auto;
     font-family: 'Roboto', sans-serif;
+
+    // Custom font cut off from top
+    text-rendering: optimizeLegibility;
 }
 
 input {
