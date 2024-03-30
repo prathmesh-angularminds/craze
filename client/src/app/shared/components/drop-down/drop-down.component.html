@@ -3,14 +3,10 @@
         <button class="drop-down-button" (click)="onButtonClicked()" role="button">
             <span *ngIf="label">{{label}} &nbsp;</span> 
         </button>
-        <!--  -->
-        <div [ngClass]="showDropDownContainer ? 'drop-down-show-menu ' + position: 'drop-down-hide-menu'">
-            <div >
-                <div [routerLink]="'/seller/app/organization-settings/users'" class="drop-down-menu-content" (click)="showDropDownContainer = false">
-                    Archive
-                </div>
-                <div class="drop-down-menu-content" (click)="showDropDownContainer = false">
-                    Activate
+        <div class="drop-down-menu" [ngClass]="showDropDownContainer ? 'drop-down-show-menu ' + position: 'drop-down-hide-menu'">
+            <div *ngFor="let content of dropdownMenu">
+                <div [routerLink]="content.route" class="drop-down-menu-content" (click)="showDropDownContainer = false">
+                    {{content.menu}}
                 </div>
             </div>
         </div>

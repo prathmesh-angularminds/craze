@@ -1,0 +1,70 @@
+@import '/src/assets/scss/mixins';
+@import '/src/assets/scss/variables';
+
+.organization-user {
+
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+    @include padding(3%, 3%, 3%, 3%);
+
+    &-table {
+
+        width: 100%;
+        @include flex-properties(flex, center, center);
+
+        table {
+
+            width: 100%;
+            border: 2px solid $black;
+            background-color: $white;
+            border-collapse: collapse;
+
+            thead {
+                border-bottom: 2px solid $black;
+
+                tr {
+
+                    th {
+                        // border: 2px solid red;
+                        @include padding(1%, 2%, 1%, 2%);
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    border-collapse: collapse;
+                    border-bottom: 2px solid $black;
+
+                    td {
+                        height: 50px;
+                        @include padding(1%, 2%, 1%, 2%);
+                        @include text-font(16px, normal, 600, $black);
+                    }
+                }
+            }
+        }
+
+        .table-email {
+
+            @include text-font(14px, 400, normal, $black);
+        }
+
+        .table-email:hover {
+            text-decoration: underline;
+        }
+
+        .table-address {
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-break: break-word;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            
+        }
+
+    }
+}

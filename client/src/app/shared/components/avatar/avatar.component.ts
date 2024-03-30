@@ -22,7 +22,7 @@ export class AvatarComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
       
-    if(!changes['hasProfileImage'].currentValue) {
+    if(!changes['hasProfileImage']?.currentValue) {
       let nameArray: string[] = changes['displayData'].currentValue.split(' ');
       nameArray.forEach((name: string) => {
         this.initialLetters = this.initialLetters + name[0];

@@ -4,7 +4,11 @@ const catchAsync = require('./../utils/catchAsync');
 const httpStatus = require('http-status');
 const { organizationService } = require('./../services/index');
 
-const { sellerService } = require('../services/index');
+// Configs
+const { tokenType } = require('./../config/tokens');
+
+// Services
+const { sellerService, tokenService } = require('../services/index');
 
 // create organization
 const createOrganization = catchAsync(async(req,res,next) => {
@@ -53,13 +57,47 @@ const getOrganizationUsers = catchAsync(async (req,res) => {
     }
 
     let users = await sellerService.getOrganizationUsers(req.params.orgId);
-    console.log("Users: ",users);
 
     return res.send({result: users}).status(httpStatus.OK)
+})
+
+// Invite new seller in organization
+const inviteNewSeller = catchAsync(async (req,res) => {
+
+    const organization = await organizationService.getOrganizationById(req.params.orgId);
+
+    // If organization is not present
+    if(!organization) {
+        throw new ApiError(httpStatus.NOT_FOUND,"Organization not found");
+    }
+
+    // If seller already exist;
+
+    const seller = await sellerService.getSellerByEmailId(req.body.email);
+
+    if(seller) {
+        throw new ApiError(httpStatus.BAD_REQUEST,"Email already exist !!!")
+    }
+    
+    let newSeller = req.body;
+    Object.assign(newSeller,{
+        _org: req.params.orgId,status: "Inactive",password: "demo123"
+    })
+    
+    newSeller = sellerService.createSeller(newSeller)
+
+    const token = tokenService.generateInviteNewSellerToken({id: newSeller._id,
+        type: 'Seller'},tokenType.INVITE_USER)
+
+    console.log("Token: ",token);
+
+    res.send({result: null,message: "Invitation send successfully"}).status(httpStatus.OK);
+    
 })
 
 module.exports = {
     createOrganization,
     getOrganizationById,
-    getOrganizationUsers
+    getOrganizationUsers,
+    inviteNewSeller
 }

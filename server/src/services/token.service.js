@@ -26,8 +26,16 @@ const generateAuthToken = (payload) => {
 const generateResetPasswordToken = (payload,forgetPasswordKey) => {
 
     const expiresIn = '15m';
-    const secretKey = process.env.JWT_SECRET + forgetPasswordKey
+    const secretKey = process.env.JWT_SECRET + forgetPasswordKey;
     const token = generateToken(payload,secretKey,expiresIn);
+    return token
+}
+
+const generateInviteNewSellerToken = (payload,inviteNewSellerKey) => {
+
+    const expiresIn = '1d';
+    const secretKey = process.env.JWT_SECRET + inviteNewSellerKey;
+    const token = generateToken(payload,secretKey,expiresIn)
     return token
 }
 
@@ -39,5 +47,6 @@ const verifyJwtToken = (token,secretKey) => {
 module.exports = {
     generateAuthToken,
     generateResetPasswordToken,
-    verifyJwtToken
+    verifyJwtToken,
+    generateInviteNewSellerToken
 }

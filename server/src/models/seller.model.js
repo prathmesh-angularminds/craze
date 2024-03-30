@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 const sellerRole = ['Admin','Order-Manager','Product-Manager']
 
+const sellerStatus = ['Active','Inactive','Invited'];
+
 const sellerSchema = new mongoose.Schema({
     _org: {
         type: mongoose.Types.ObjectId,
@@ -35,11 +37,15 @@ const sellerSchema = new mongoose.Schema({
         required: true,
         enum: sellerRole
     },
-    isActive: {
-        type: Boolean,
-        default: true,
+    status: {
+        type: String,
+        trim: true,
+        required: true,
+        enum: sellerStatus
     }
 })
+
+
 
 const Seller = mongoose.model('Seller',sellerSchema);
 module.exports = Seller

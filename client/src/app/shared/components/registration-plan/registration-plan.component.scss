@@ -21,19 +21,19 @@
     &-app-name {
         
         top: 0px;
-        @include text-font(20px, 900, normal, $black);
+        @include text-styling('Whyte', 20px, 900, normal, $black);
     }
 
     &-title {
 
         text-align: center;
-        @include text-font(50px, 900, normal, $black);
+        @include text-styling('Whyte', 50px, 900, normal, $black);
         @include margin(2%, 0px, 0px, 0px);
     }
 
     &-sub-title {
 
-        @include text-font(14px, 400, normal, #7C7C7C);
+        @include text-styling('Whyte', 14px, normal, normal, #7C7C7C);
         text-align: center;
         @include margin(6px, 0px, 2%, 0px);
         box-sizing: border-box;

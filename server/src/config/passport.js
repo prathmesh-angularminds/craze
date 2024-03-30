@@ -13,7 +13,7 @@ const verifyJWT = async (payload, done) => {
     try {
         let user = null;
         if(payload.type === 'Seller') 
-            user = await Seller.findById(payload.id);
+            user = await Seller.findById(payload.id).populate('_org');
         // else 
             // user = await Customer.findById(payload._id);
 

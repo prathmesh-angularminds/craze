@@ -9,6 +9,9 @@ const auth = require('../middleware/auth');
 const { organizationValidation } = require('./../validations/index')
 const { organizationController } = require('./../controllers/index')
 
+// Self call
+router.use(auth.auth());
+
 // Create new organization
 router.route('/')
     .post(validate(organizationValidation.createOrganization),organizationController.createOrganization);
@@ -17,8 +20,9 @@ router.route('/')
 router.route('/:orgId')
     .get(validate(organizationValidation.checkObjectId),organizationController.getOrganizationById)
 
-// Self call
-router.use(auth.auth());
+// Invite new seller
+router.route("/invite-seller/:orgId")
+    .post(validate(organizationValidation.inviteNewSeller),organizationController.inviteNewSeller);               
 
 // Get organization
 router.route('/users/:orgId')

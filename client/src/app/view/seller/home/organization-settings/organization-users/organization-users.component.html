@@ -1,1 +1,51 @@
-<p>organization-users works!</p>
+<div class="organization-user">
+
+    <button>Invite User</button>
+    <!-- Organization user headers -->
+    <div class="organization-user-table">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 20%; text-align: left;">
+                        <div style="display: flex; align-items: center;">
+                            Name
+                            <img src="../../../../../../assets/images/arrow-down.svg" />
+                        </div>
+                    </th>
+                    <th style="width: 26%; text-align: left;">Address</th>
+                    <th style="width: 14%; text-align: left;">Role</th>
+                    <th style="width: 8%">Status</th>
+                    <th style="width: 6%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of userList">
+                    <td style="width: 28%">
+                        <div style="width: 100%;display: flex;align-items: center;">
+                            <app-avatar [displayData]="user.firstName+' '+user.lastName"
+                                [hasProfileImage]="false"></app-avatar> &nbsp; &nbsp;
+                            <div>
+                                <p style="font-weight: 600;font-size: 16px; margin-bottom: 5px">{{user.firstName}}
+                                    {{user.lastName}}</p>
+                                <p class="table-email">{{user.email}}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width: 28%">
+                        <div class="table-address">{{user.address ? user.address : '-'}}</div>
+                    </td>
+                    <td style="width: 13%"><b>{{user.sellerRole}}</b></td>
+                    <td style="width: 8%">
+                        <app-brutalism-badge
+                            [className]="user.status === 'Active' ? 'success-bordered' : user.status === 'Inactive' ? 'danger-bordered' : 'black-bordered'"
+                            [label]="user.status"></app-brutalism-badge>
+                    </td>
+                    <td style="width: 6%; text-align: center;">
+                        <drop-down class="dropdown" [position]="'bottom'" [label]="''" [borderColor]="'black'"
+                            [imageUrl]="'../../../../../../assets/images/3-dots.svg'" [dropdownMenu]="dropDownMenu"></drop-down>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -16,14 +16,12 @@ const auth = require("../middleware/auth");
 // Self call
 router.route("/self")
 .get(auth.auth(),(req,res,next) => {
-    console.log("Seller: ",req.user);
     res.send({result: req.user});
 });
 
 // Seller Authentication
 router.route("/seller/sign-in").post(verifyCaptcha.verify,validate(authValidation.signIn), sellerController.signInSeller)  // Seller Login
 router.route("/seller/sign-up").post(validate(authValidation.sellerSignUp), sellerController.signUpSeller);                // Seller Registration
-
 router.route('/seller/forget-password').post(validate(authValidation.forgetPassword),sellerController.forgetPassword);     // Seller Forget Password
 
 router.route('/seller/reset-password/:sellerId')                                                  // Seller Reset Password and Verify Reset Password

@@ -12,7 +12,7 @@ const verifyCallBack = (req, resolve, reject) => {
         }
 
         // If user is not active then throw an error
-        if(!user.isActive) {
+        if(!user.status === 'Active') {
             return reject(new ApiError(httpStatus.UNAUTHORIZED,"Seller is not active"))
         }
 

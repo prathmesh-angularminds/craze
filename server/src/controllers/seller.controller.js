@@ -106,10 +106,10 @@ const verifyResetPassword = catchAsync(async(req,res) => {
 const resetPassword = catchAsync(async(req,res) => {
 
     const seller = await sellerService.resetPassword(req.params.sellerId,req.query.token,req.body.password)
-
     res.send({message: "Password reset successfully"}).status(httpStatus.OK)
-
 })
+
+// Invite new Seller
 
 const getAllSellers = catchAsync(async(req,res,next) => {
 

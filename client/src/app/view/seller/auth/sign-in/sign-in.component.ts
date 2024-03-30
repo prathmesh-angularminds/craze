@@ -90,6 +90,11 @@ export class SignInComponent implements OnInit, OnDestroy {
   // Sign in function
   submitLoginForm() {
 
+    this.toasterService.showToaster.next({
+      message: 'err.error.message || err.message',
+      type: "Error"
+    })
+
     this.router.navigateByUrl('/seller/app')
 
 

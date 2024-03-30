@@ -17,7 +17,21 @@ const checkObjectId = {
     })
 }
 
+// Check Invited user for organization
+const inviteNewSeller = {
+    params: Joi.object().keys({
+        orgId: Joi.string().required().custom(objectId)
+    }),
+    body: Joi.object().keys({
+        firstName: Joi.string().required(),
+        lastName: Joi.string().required(),
+        email: Joi.string().email({tlds: {allow: ['com','net','in']}}).required(),          // tlds means the domain should be .com, .net or .in
+        sellerRole: Joi.string().required()
+    })
+}
+
 module.exports = {
     createOrganization,
-    checkObjectId
+    checkObjectId,
+    inviteNewSeller
 }

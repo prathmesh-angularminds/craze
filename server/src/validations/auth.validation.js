@@ -50,5 +50,5 @@ module.exports = {
     sellerSignUp,
     forgetPassword,
     verifySellerResetPassword,
-    resetSellerPassword
+    resetSellerPassword,
 }
